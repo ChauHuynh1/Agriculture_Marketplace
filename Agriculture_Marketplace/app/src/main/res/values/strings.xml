@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Agriculture_Marketplace</string>
+    <string name="home">Home</string>
+    <string name="forum">Forum</string>
+    <string name="account_setting">Account</string>
+    <string name="search_forum">Search Forum</string>
+    <string name="forum_image">Forum Image</string>
+    <string name="_123_results">123 results</string>
+    <string name="farmer_saigon">Farmer Saigon</string>
+    <string name="owner_nguyen_dang_huynh_chau">Owner: Nguyen Dang Huynh Chau</string>
+    <string name="star_icon">Star Icon</string>
+    <string name="_4_5">4.5</string>
+    <string name="_1234_ratings">(1234 ratings)</string>
+    <string name="_2_5k_members">2.5k members</string>
 </resources>
