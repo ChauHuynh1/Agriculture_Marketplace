@@ -1,0 +1,10 @@
+package com.example.agriculture_marketplace.Config;
+
+public class ForumConfig {
+    public static final String FORUM_ID = "id";
+    public static final String FORUM_NAME = "name";
+    public static final String FORUM_DESCRIPTION = "description";
+    public static final String FORUM_CATEGORY = "category";
+    public static final String FORUM_OWNER = "owner";
+    public static final String FORUM_MESSAGES = "messages";
+}

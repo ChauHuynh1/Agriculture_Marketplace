@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "171009609473",
+    "project_id": "agriculturemarketplace-794c9",
+    "storage_bucket": "agriculturemarketplace-794c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171009609473:android:0bb61058f1dafef4e51500",
+        "android_client_info": {
+          "package_name": "com.example.agriculture_marketplace"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMxJMWsQd8Era1gE12niSISFCD4ldLlfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
