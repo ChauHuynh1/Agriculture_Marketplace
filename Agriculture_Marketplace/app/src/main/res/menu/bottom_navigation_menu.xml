@@ -4,23 +4,20 @@
     <item
         android:id="@+id/navigation_item1"
         android:icon="@drawable/home_icon"
-        android:onClick="openHomepageActivity"
-        app:showAsAction="ifRoom"
-        android:title="@string/home" />
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/navigation_item2"
         android:icon="@drawable/forum_icon"
-        android:onClick="openForumActivity"
-        app:showAsAction="ifRoom"
-        android:title="@string/forum" />
+        android:title="@string/forum"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/navigation_item3"
         android:icon="@drawable/account_icon"
-        android:onClick="openAccountSettingActivity"
-        app:showAsAction="ifRoom"
-        android:title="@string/account_setting" />
+        android:title="@string/account_setting"
+        app:showAsAction="ifRoom" />
 
 
 

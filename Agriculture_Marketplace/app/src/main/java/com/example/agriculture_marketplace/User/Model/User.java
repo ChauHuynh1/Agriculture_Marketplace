@@ -5,30 +5,27 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String[] ratings;
+
 
 
     //Constructors
-    public User(String id, String name, String email, String password, String[] ratings) {
-        this.id = id;
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.ratings = ratings;
+
     }
     public User() {
         this.id = "";
         this.name = "";
         this.email = "";
         this.password = "";
-        this.ratings = new String[0];
     }
     public User(User user) {
         this.id = user.id;
         this.name = user.name;
         this.email = user.email;
         this.password = user.password;
-        this.ratings = user.ratings;
     }
 
     //Methods
@@ -65,11 +62,4 @@ public class User {
         this.password = password;
     }
 
-    public String[] getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(String[] ratings) {
-        this.ratings = ratings;
-    }
 }

@@ -1,7 +1,6 @@
 package com.example.agriculture_marketplace.Forum.Model;
 
 import com.example.agriculture_marketplace.Message.Model.Message;
-import com.example.agriculture_marketplace.User.Model.ForumOwner;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -14,43 +13,36 @@ public class Forum implements Externalizable {
     private String name;
     private String category;
     private String description;
-    private ForumOwner owner;
+    private String ownerId;
+    private String imageUrl;
     private Message[] messages;
-    private String[] members;
+
 
 
     //MARKER: Constructors
-    public Forum(String name, String category, String description) {
+    public Forum(String name, String category, String description, String ownerId, String imageUrl) {
         this.id = "";
         this.name = name;
         this.category = category;
         this.description = description;
+        this.ownerId = ownerId;
     }
     public Forum() {
-        this.id = "";
         this.name = "";
         this.category = "";
         this.description = "";
+        this.ownerId = "";
+        this.imageUrl = "";
     }
     public Forum(Forum forum) {
         this.id = forum.id;
         this.name = forum.name;
         this.category = forum.category;
         this.description = forum.description;
+        this.ownerId = forum.ownerId;
+        this.imageUrl = forum.imageUrl;
     }
     //Methods
-    public void addMember() {
-        //TODO
-    }
-    public void removeMember() {
-        //TODO
-    }
-    public void addManager() {
-        //TODO
-    }
-    public void removeManager() {
-        //TODO
-    }
     public void addMessage() {
         //TODO
     }
@@ -65,13 +57,22 @@ public class Forum implements Externalizable {
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", description='" + description + '\'' +
-                ", owner=" + owner +
+                ", owner=" + ownerId +
                 ", messages=" + Arrays.toString(messages) +
-                ", members=" + Arrays.toString(members) +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 
     //Getters and Setters
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getId() {
         return id;
     }
@@ -104,19 +105,29 @@ public class Forum implements Externalizable {
         this.description = description;
     }
 
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
     @Override
     public void writeExternal(ObjectOutput objectOutput) throws IOException {
-        objectOutput.writeObject(id);
         objectOutput.writeObject(name);
         objectOutput.writeObject(category);
         objectOutput.writeObject(description);
+        objectOutput.writeObject(ownerId);
+        objectOutput.writeObject(imageUrl);
     }
 
     @Override
     public void readExternal(ObjectInput objectInput) throws ClassNotFoundException, IOException {
-        id = (String) objectInput.readObject();
         name = (String) objectInput.readObject();
         category = (String) objectInput.readObject();
         description = (String) objectInput.readObject();
+        ownerId = (String) objectInput.readObject();
+        imageUrl = (String) objectInput.readObject();
     }
 }

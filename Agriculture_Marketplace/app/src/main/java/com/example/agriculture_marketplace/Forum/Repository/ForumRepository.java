@@ -14,21 +14,19 @@ public class ForumRepository {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ForumRepository() {
     }
-    public void saveForumToFirebase(Forum forum) {
+    public CompletableFuture<Void> saveForumToFirebase(Forum forum) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
         db.collection(CollectionConfig.FORUM_COLLECTION)
                 .add(forum)
                 .addOnSuccessListener(documentReference -> {
                     Log.d(TAG, "saveForumToFirebase: Success");
-                    String id = documentReference.getId();
-                    db.collection(CollectionConfig.FORUM_COLLECTION)
-                            .document(id)
-                            .update("id", id)
-                            .addOnSuccessListener(aVoid -> Log.d(TAG, "updateForumId: Success"))
-                            .addOnFailureListener(e -> Log.d(TAG, "updateForumId: Failed"));
+                    future.complete(null);
                 })
                 .addOnFailureListener(e -> {
                     Log.d(TAG, "saveForumToFirebase: Failed");
+                    future.completeExceptionally(e);
                 });
+        return future;
     }
     public void updateForum(Forum forum) {
         db.collection(CollectionConfig.FORUM_COLLECTION)
@@ -68,7 +66,10 @@ public class ForumRepository {
                     Log.d(TAG, "getAllForums: Success");
                     ArrayList<Forum> forums = new ArrayList<>();
                     for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
-                        forums.add(queryDocumentSnapshots.getDocuments().get(i).toObject(Forum.class));
+                        Forum temp = queryDocumentSnapshots.getDocuments().get(i).toObject(Forum.class);
+                        assert temp != null;
+                        temp.setId(queryDocumentSnapshots.getDocuments().get(i).getId());
+                        forums.add(temp);
                     }
                     future.complete(forums);
                 })
@@ -78,5 +79,4 @@ public class ForumRepository {
                 });
         return future;
     }
-
 }
