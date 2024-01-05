@@ -15,4 +15,13 @@
     <string name="join_now">Join Now!</string>
     <string name="ho_chi_minh_city">Ho Chi Minh City</string>
     <string name="general_information">General Information</string>
+    <string name="register_forum">Register Forum</string>
+    <string name="forum_name">Forum Name</string>
+    <string name="enter_your_forum_name">Enter your forum name</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="what_is_your_forum_about">What is your forum about</string>
+    <string name="create_forum">Create Forum</string>
+    <string name="upload_your_image">Upload your image</string>
+    <string name="delete_forum">Delete Forum</string>
 </resources>
