@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.agriculture_marketplace.Activity.BrowseForumActivity;
 import com.example.agriculture_marketplace.Activity.CreateForumActivity;
+import com.example.agriculture_marketplace.Activity.UpdateForumActivity;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Forum.Repository.ForumRepository;
 import com.example.agriculture_marketplace.MemberForum.MemberForum;
@@ -39,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
 //        forumRepository.saveForumToFirebase(forum1);
 //        MemberForum memberForum = new MemberForum("6guQj41QNErU1U5i1YNx", "2QsepQyv9ds6j0DzD7ip");
 //        memberForumRepository.saveMemberForumToFirebase(memberForum);
-        Intent intent = new Intent(this, CreateForumActivity.class);
-        startActivity(intent);
+        forumRepository.getForumById("ixsVrpNhldKBGzR5JBBg").thenAccept(forum -> {
+            Log.d(TAG, "onCreate: " + forum.toString());
+            Intent intent = new Intent(this, UpdateForumActivity.class);
+            intent.putExtra("forum", forum);
+            startActivity(intent);
+        });
+
     }
 }

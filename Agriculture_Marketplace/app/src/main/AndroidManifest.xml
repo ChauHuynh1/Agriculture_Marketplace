@@ -27,6 +27,8 @@
             android:exported="true"/>
         <activity android:name=".Activity.CreateForumActivity"
             android:exported="true"/>
+        <activity android:name=".Activity.UpdateForumActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

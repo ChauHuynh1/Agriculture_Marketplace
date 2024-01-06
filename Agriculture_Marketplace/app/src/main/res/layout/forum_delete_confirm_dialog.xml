@@ -12,21 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
+
         <Button
+            android:id="@+id/forum_delete_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="Yes"
-            android:textSize="20sp"
-            android:layout_marginRight="5dp"
-          />
+            android:textSize="20sp" />
+
         <Button
+            android:id="@+id/forum_delete_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="No"
-            android:textSize="20sp"
-            android:layout_marginLeft="5dp"
-            />
+            android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>

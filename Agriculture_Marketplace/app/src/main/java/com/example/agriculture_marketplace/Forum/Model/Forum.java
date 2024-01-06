@@ -115,6 +115,7 @@ public class Forum implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput objectOutput) throws IOException {
+        objectOutput.writeObject(id);
         objectOutput.writeObject(name);
         objectOutput.writeObject(category);
         objectOutput.writeObject(description);
@@ -124,6 +125,7 @@ public class Forum implements Externalizable {
 
     @Override
     public void readExternal(ObjectInput objectInput) throws ClassNotFoundException, IOException {
+        id = (String) objectInput.readObject();
         name = (String) objectInput.readObject();
         category = (String) objectInput.readObject();
         description = (String) objectInput.readObject();
