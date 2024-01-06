@@ -24,4 +24,5 @@
     <string name="create_forum">Create Forum</string>
     <string name="upload_your_image">Upload your image</string>
     <string name="delete_forum">Delete Forum</string>
+    <string name="update_forum">Update Forum</string>
 </resources>

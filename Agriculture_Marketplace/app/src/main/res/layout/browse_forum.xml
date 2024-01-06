@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
 
     <LinearLayout
@@ -26,7 +27,7 @@
            >
 
             <EditText
-                android:id="@+id/searchEditText"
+                android:id="@+id/browse_forum_search"
                 android:layout_width="245dp"
                 android:layout_height="70dp"
                 android:layout_margin="10dp"
@@ -46,13 +47,12 @@
                 android:focusable="true">
 
                 <Spinner
-                    android:id="@+id/timeSpinner"
+                    android:id="@+id/create_forum_category_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical" />
             </FrameLayout>
         </LinearLayout>
-
 
 
         <ScrollView
@@ -66,7 +66,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/resultAmount"
+                    android:id="@+id/browse_forum_result_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -75,12 +75,11 @@
                     android:textStyle="bold" />
 
                 <ListView
-                    android:id="@+id/forumListView"
+                    android:id="@+id/browse_forum_list_view"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp"
+                    android:layout_height="500dp"
                     android:divider="@android:color/transparent"
-                    android:dividerHeight="14.0sp"
-                    />
+                    android:dividerHeight="14.0sp" />
 
 
             </LinearLayout>
@@ -93,6 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:menu="@menu/bottom_navigation_menu"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

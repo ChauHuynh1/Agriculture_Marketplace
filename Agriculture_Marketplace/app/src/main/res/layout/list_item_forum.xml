@@ -6,7 +6,7 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/forumImage"
+        android:id="@+id/create_forum_image"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_alignParentStart="true"
@@ -18,11 +18,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_toEndOf="@id/forumImage"
+        android:layout_toEndOf="@id/create_forum_image"
         android:layout_marginStart="16dp">
 
         <TextView
-            android:id="@+id/forumName"
+            android:id="@+id/list_item_forum_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -30,7 +30,7 @@
             android:textSize="20sp"/>
 
         <TextView
-            android:id="@+id/forumOwner"
+            android:id="@+id/list_item_forum_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/owner_nguyen_dang_huynh_chau"
@@ -53,7 +53,7 @@
                 android:src="@drawable/star_icon" />
 
             <TextView
-                android:id="@+id/forumRating"
+                android:id="@+id/list_item_forum_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -61,7 +61,7 @@
                 android:text="@string/_4_5" />
 
             <TextView
-                android:id="@+id/ratingAmount"
+                android:id="@+id/list_item_forum_rating_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -86,7 +86,7 @@
                 android:src="@drawable/account_icon" />
 
             <TextView
-                android:id="@+id/forumMember"
+                android:id="@+id/forum_detail_member_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

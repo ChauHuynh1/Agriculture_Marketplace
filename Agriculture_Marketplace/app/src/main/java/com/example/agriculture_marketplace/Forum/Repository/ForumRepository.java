@@ -14,51 +14,67 @@ public class ForumRepository {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ForumRepository() {
     }
-    public void saveForumToFirebase(Forum forum) {
+    public CompletableFuture<Void> saveForumToFirebase(Forum forum) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
         db.collection(CollectionConfig.FORUM_COLLECTION)
                 .add(forum)
                 .addOnSuccessListener(documentReference -> {
                     Log.d(TAG, "saveForumToFirebase: Success");
-                    String id = documentReference.getId();
-                    db.collection(CollectionConfig.FORUM_COLLECTION)
-                            .document(id)
-                            .update("id", id)
-                            .addOnSuccessListener(aVoid -> Log.d(TAG, "updateForumId: Success"))
-                            .addOnFailureListener(e -> Log.d(TAG, "updateForumId: Failed"));
+                    future.complete(null);
                 })
                 .addOnFailureListener(e -> {
                     Log.d(TAG, "saveForumToFirebase: Failed");
+                    future.completeExceptionally(e);
                 });
+        return future;
     }
-    public void updateForum(Forum forum) {
+    public CompletableFuture<Void> updateForum(Forum forum) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
         db.collection(CollectionConfig.FORUM_COLLECTION)
                 .document(forum.getId())
                 .set(forum)
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "updateForum: Success"))
-                .addOnFailureListener(e -> Log.d(TAG, "updateForum: Failed"));
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "updateForum: Success");
+                    future.complete(null);
+                })
+                .addOnFailureListener(e -> {
+                    Log.d(TAG, "updateForum: Failed");
+                    future.completeExceptionally(e);
+                });
+        return future;
     }
-    public void deleteForum(Forum forum) {
+    public CompletableFuture<Void> deleteForum(String id) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
         db.collection(CollectionConfig.FORUM_COLLECTION)
-                .document(forum.getId())
+                .document(id)
                 .delete()
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "deleteForum: Success"))
-                .addOnFailureListener(e -> Log.d(TAG, "deleteForum: Failed"));
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "deleteForum: Success");
+                    future.complete(null);
+                })
+                .addOnFailureListener(e -> {
+                    Log.d(TAG, "deleteForum: Failed");
+                    future.completeExceptionally(e);
+                });
+        return future;
     }
-    public void getForumById(String id) {
+    public CompletableFuture<Forum> getForumById(String id) {
+        CompletableFuture<Forum> future = new CompletableFuture<>();
         db.collection(CollectionConfig.FORUM_COLLECTION)
                 .document(id)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        Log.d(TAG, "getForumById: Success");
-                        Forum forum = documentSnapshot.toObject(Forum.class);
-                        assert forum != null;
-                        Log.d(TAG, "getForumById: " + forum.toString());
-                    } else {
-                        Log.d(TAG, "getForumById: Failed");
-                    }
+                    Forum forum = documentSnapshot.toObject(Forum.class);
+                    assert forum != null;
+                    forum.setId(documentSnapshot.getId());
+                    future.complete(forum);
+                    Log.d(TAG, "getForumById: Success");
                 })
-                .addOnFailureListener(e -> Log.d(TAG, "getForumById: Failed"));
+                .addOnFailureListener(e -> {
+                    Log.d(TAG, "getForumById: Failed");
+                    future.completeExceptionally(e);
+                });
+        return future;
     }
     public CompletableFuture<ArrayList<Forum>> getAllForums() {
         CompletableFuture<ArrayList<Forum>> future = new CompletableFuture<>();
@@ -68,7 +84,10 @@ public class ForumRepository {
                     Log.d(TAG, "getAllForums: Success");
                     ArrayList<Forum> forums = new ArrayList<>();
                     for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
-                        forums.add(queryDocumentSnapshots.getDocuments().get(i).toObject(Forum.class));
+                        Forum temp = queryDocumentSnapshots.getDocuments().get(i).toObject(Forum.class);
+                        assert temp != null;
+                        temp.setId(queryDocumentSnapshots.getDocuments().get(i).getId());
+                        forums.add(temp);
                     }
                     future.complete(forums);
                 })
@@ -78,5 +97,4 @@ public class ForumRepository {
                 });
         return future;
     }
-
 }
