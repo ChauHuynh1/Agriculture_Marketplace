@@ -1,7 +1,7 @@
 package com.example.agriculture_marketplace.User.Model;
 
 public class User {
-    private String id;
+    private String userId;
     private String name;
     private String email;
     private String password;
@@ -9,20 +9,20 @@ public class User {
 
 
     //Constructors
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, String userId) {
         this.name = name;
         this.email = email;
         this.password = password;
-
+        this.userId = userId;
     }
     public User() {
-        this.id = "";
+        this.userId = "";
         this.name = "";
         this.email = "";
         this.password = "";
     }
     public User(User user) {
-        this.id = user.id;
+        this.userId = user.userId;
         this.name = user.name;
         this.email = user.email;
         this.password = user.password;
@@ -31,11 +31,11 @@ public class User {
     //Methods
 
     public String getId() {
-        return id;
+        return userId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.userId = id;
     }
 
     public String getName() {
