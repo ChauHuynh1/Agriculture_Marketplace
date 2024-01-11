@@ -58,4 +58,9 @@
     <string name="_30">$ 30</string>
     <string name="para_description">This is our description. I did not know what to write so I wrote something silly.</string>
     <string name="add_to_your_cart">Add To Your Cart</string>
+    <string name="product_detail">Product Detail</string>
+    <string name="enter_your_product_name">Enter your product name</string>
+    <string name="product_name">Product Name</string>
+    <string name="brand_name">Brand name</string>
+    <string name="enter_your_product_brand_name">Enter your product brand name:</string>
 </resources>

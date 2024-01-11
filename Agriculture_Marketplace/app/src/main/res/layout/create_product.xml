@@ -43,13 +43,13 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/create_forum"
+                android:text="@string/product_detail"
                 android:gravity="center"
                 android:textSize="36sp"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/create_forum_image"
+                android:id="@+id/create_product_image"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:layout_gravity="center"
@@ -59,7 +59,7 @@
                 android:contentDescription="@string/forum_image" />
 
             <Button
-                android:id="@+id/create_forum_choose_image"
+                android:id="@+id/create_product_choose_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -80,18 +80,18 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/forum_name"
+                android:text="@string/product_name"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/create_forum_name"
+                android:id="@+id/create_product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/border"
-                android:hint="@string/enter_your_forum_name"
+                android:hint="@string/enter_your_product_name"
                 android:padding="20dp"
                 android:textSize="18sp" />
 
@@ -128,12 +128,34 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
+                android:text="@string/brand_name"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/create_product_brand_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/border"
+                android:hint="@string/enter_your_product_brand_name"
+                android:padding="20dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/description"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/create_forum_description"
+                android:id="@+id/create_product_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -144,7 +166,7 @@
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/create_forum_create_button"
+                android:id="@+id/create_product_create_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
