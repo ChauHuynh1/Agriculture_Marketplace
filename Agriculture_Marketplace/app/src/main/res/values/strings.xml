@@ -52,4 +52,10 @@
     <string name="_2_99">$ 2,99</string>
     <string name="apple_da_lat">Apple Da Lat</string>
     <string name="planted_in_da_lat_from_the_best_vietnamese_farmer">Planted in Da Lat from the best Vietnamese farmer</string>
+    <string name="quantity">Quantity</string>
+    <string name="_21">21</string>
+    <string name="total">Total $</string>
+    <string name="_30">$ 30</string>
+    <string name="para_description">This is our description. I did not know what to write so I wrote something silly.</string>
+    <string name="add_to_your_cart">Add To Your Cart</string>
 </resources>
