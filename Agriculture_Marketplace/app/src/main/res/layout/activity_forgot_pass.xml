@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/textColor"
-
-    tools:context=".ForgotPass">
+    tools:context=".Activity.ForgotPass">
 
     <LinearLayout
         android:layout_width="409dp"
         android:layout_height="600dp"
         android:layout_weight="2"
         android:orientation="vertical"
+        android:background="@drawable/sample_forum_image"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +62,7 @@
                 android:id="@+id/btn_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/textColor"
+                android:backgroundTint="@color/G469D7B"
                 android:ems="15"
                 android:text="Send"
                 app:layout_constraintBottom_toBottomOf="parent"

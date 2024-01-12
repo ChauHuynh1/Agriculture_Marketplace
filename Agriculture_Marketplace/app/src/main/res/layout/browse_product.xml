@@ -53,10 +53,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-           >
+            >
 
             <EditText
-                android:id="@+id/browse_forum_search"
+                android:id="@+id/browse_product_search"
                 android:layout_width="245dp"
                 android:layout_height="70dp"
                 android:layout_margin="10dp"
@@ -76,7 +76,7 @@
                 android:focusable="true">
 
                 <Spinner
-                    android:id="@+id/create_forum_category_spinner"
+                    android:id="@+id/create_product_category_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical" />
@@ -95,7 +95,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/browse_forum_result_amount"
+                    android:id="@+id/browse_product_result_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -104,7 +104,7 @@
                     android:textStyle="bold" />
 
                 <ListView
-                    android:id="@+id/browse_forum_list_view"
+                    android:id="@+id/browse_product_list_view"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
                     android:divider="@android:color/transparent"
