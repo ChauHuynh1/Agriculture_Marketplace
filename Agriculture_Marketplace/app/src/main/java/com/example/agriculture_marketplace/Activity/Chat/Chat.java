@@ -1,8 +1,11 @@
 package com.example.agriculture_marketplace.Activity.Chat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -10,14 +13,22 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.agriculture_marketplace.Activity.Login;
+import com.example.agriculture_marketplace.Activity.SignUp;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
+import com.example.agriculture_marketplace.Message.Model.ChatMessageModel;
 import com.example.agriculture_marketplace.Message.Model.ChatroomModel;
 import com.example.agriculture_marketplace.R;
 import com.example.agriculture_marketplace.utils.AndroidUtil;
 import com.example.agriculture_marketplace.utils.FirebaseUtil;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -35,7 +46,8 @@ public class Chat extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView forum_detail_name;
     String chatroomId;
-
+    ChatroomModel chatroomModel;
+    ChatRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +56,17 @@ public class Chat extends AppCompatActivity {
 
         backButton = findViewById(R.id.back_btn);
         backButton.setOnClickListener(v -> {
-            onBackPressed();
+            startActivity(new Intent(Chat.this, ChatForum.class));
         });
-        //get ForumModel
+
         sendMessage = findViewById(R.id.message_send_btn);
         messageInput = findViewById(R.id.chat_message_input);
         recyclerView = findViewById(R.id.chat_recycle_view);
         forum_detail_name = findViewById(R.id.forum_detail_name);
 
-        // Retrieve forum data from Intent
         String forumId = getIntent().getStringExtra("forumId");
         String forumName = getIntent().getStringExtra("forumName");
 
-        // Create a new Forum object
         otherForum = new Forum();
         otherForum.setId(forumId);
         otherForum.setName(forumName);
@@ -68,17 +78,66 @@ public class Chat extends AppCompatActivity {
             Log.e("ForumDetails", "otherForum is null");
             forum_detail_name.setText("Default Forum Name");
         }
+
+        sendMessage.setOnClickListener((v -> {
+            String message = messageInput.getText().toString().trim();
+            if (message.isEmpty())
+                return;
+            sendMessageToUser(message);
+        }));
+
         getOrCreateChatRoomModel();
+    }
+
+    private void sendMessageToUser(String message) {
+        if (chatroomModel == null) {
+            return;
+        }
+        chatroomModel.setLastMessageTimestamp(Timestamp.now());
+        chatroomModel.setLastMessageSenderId(FirebaseUtil.currentUserId());
+        chatroomModel.setLastMessage(message);
+        FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
+
+        ChatMessageModel chatMessageModel = new ChatMessageModel(message, FirebaseUtil.currentUserId(), Timestamp.now());
+
+        FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        messageInput.setText("");
+                    }
+                });
+    }
+
+    private void setupChatRecyclerView() {
+        if (chatroomId != null) {
+            Query query = FirebaseUtil.getChatroomMessageReference(chatroomId)
+                    .orderBy("timestamp", Query.Direction.DESCENDING);
+
+            FirestoreRecyclerOptions<ChatMessageModel> options = new FirestoreRecyclerOptions.Builder<ChatMessageModel>()
+                    .setQuery(query, ChatMessageModel.class)
+                    .build();
+
+            adapter = new ChatRecyclerAdapter(options, this);
+            LinearLayoutManager manager = new LinearLayoutManager(this);
+            manager.setReverseLayout(true);
+            recyclerView.setLayoutManager(manager);
+            recyclerView.setAdapter(adapter);
+            adapter.startListening();
+            adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    super.onItemRangeInserted(positionStart, itemCount);
+                    recyclerView.smoothScrollToPosition(0);
+                }
+            });
+        }
     }
 
     private void getOrCreateChatRoomModel() {
         String forumId = otherForum.getId();
         String currentUserId = FirebaseUtil.currentUserId();
 
-        // Create a reference to the "chatRooms" collection in Firestore
-        CollectionReference chatRoomsCollection = FirebaseFirestore.getInstance().collection("chatRooms");
-
-        // Query to find a chat room based on forumId and currentUserId
+        CollectionReference chatRoomsCollection = FirebaseFirestore.getInstance().collection("chatrooms");
         Query query = chatRoomsCollection
                 .whereEqualTo("forumId", forumId)
                 .whereArrayContains("userIds", currentUserId);
@@ -86,42 +145,40 @@ public class Chat extends AppCompatActivity {
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = getFirstDocument(task.getResult());
-
                 if (document != null) {
-                    // If the chat room exists, retrieve the chat room details
                     handleExistingChatRoom(document);
+                    chatroomId = document.getId();
+                    setupChatRecyclerView();
                 } else {
-                    // If the chat room doesn't exist, create a new one
                     createAndHandleNewChatRoom(forumId, currentUserId);
                 }
             } else {
-                // Handle the error
                 handleChatRoomError();
             }
         });
     }
+
 
     private DocumentSnapshot getFirstDocument(QuerySnapshot querySnapshot) {
         return querySnapshot.isEmpty() ? null : querySnapshot.getDocuments().get(0);
     }
 
     private void handleExistingChatRoom(DocumentSnapshot document) {
-        ChatroomModel chatRoom = document.toObject(ChatroomModel.class);
-        chatroomId = chatRoom != null ? chatRoom.getChatroomId() : null;
-
-        // Now you can use chatRoom as needed
-        // Additional logic if necessary
+        chatroomModel = document.toObject(ChatroomModel.class);
+        if (chatroomModel != null) {
+            chatroomId = chatroomModel.getChatroomId();
+        }
     }
 
     private void createAndHandleNewChatRoom(String forumId, String currentUserId) {
         String newChatRoomId = UUID.randomUUID().toString();
 
-        ChatroomModel newChatRoom = new ChatroomModel(newChatRoomId, forumId, Collections.singletonList(currentUserId), null, null);
-        newChatRoom.setLastMessageTimestamp(Timestamp.now());  // Set current timestamp
+        chatroomModel = new ChatroomModel(newChatRoomId, forumId, Collections.singletonList(currentUserId), null, "");
+        chatroomModel.setLastMessageTimestamp(Timestamp.now());
 
-        FirebaseFirestore.getInstance().collection("chatRooms")
+        FirebaseFirestore.getInstance().collection("chatrooms")
                 .document(newChatRoomId)
-                .set(newChatRoom)
+                .set(chatroomModel)
                 .addOnSuccessListener(aVoid -> {
                     chatroomId = newChatRoomId;
                 })
@@ -133,7 +190,5 @@ public class Chat extends AppCompatActivity {
     private void handleChatRoomError() {
         Toast.makeText(Chat.this, "Error getting chat room", Toast.LENGTH_SHORT).show();
     }
-
-
-
 }
+

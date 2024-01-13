@@ -59,6 +59,8 @@ public class FirebaseUtil {
         return FirebaseFirestore.getInstance().collection("chatrooms").document(chatroomId);
     }
 
+
+
     public static DocumentReference getOtherUserFromChatroom(List<String> userIds) {
         if (userIds.get(0).equals(FirebaseUtil.currentUserId())) {
             return allUserCollectionReference().document(userIds.get(1));

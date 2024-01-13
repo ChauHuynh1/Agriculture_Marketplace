@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.agriculture_marketplace.Activity.Chat.Chat;
+import com.example.agriculture_marketplace.Activity.Chat.ChatForum;
 import com.example.agriculture_marketplace.MainActivity;
 import com.example.agriculture_marketplace.R;
 import com.example.agriculture_marketplace.User.Model.User;
@@ -83,7 +85,7 @@ public class Login extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 progressDialog.dismiss();
-                                startActivity(new Intent(Login.this, MainActivity.class));
+                                startActivity(new Intent(Login.this, ChatForum.class));
                                 finish();
                             }else {
                                 progressDialog.dismiss();
@@ -144,7 +146,7 @@ public class Login extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> firestoreTask) {
                                                         if (firestoreTask.isSuccessful()) {
                                                             // User data added to Firestore successfully
-                                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                            Intent intent = new Intent(getApplicationContext(), ChatForum.class);
                                                             Toast.makeText(Login.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                                                             startActivity(intent);
                                                         } else {
@@ -175,7 +177,7 @@ public class Login extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!= null){
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, ChatForum.class);
             startActivity(intent);
             finish();
         }

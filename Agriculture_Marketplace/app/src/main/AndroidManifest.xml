@@ -16,8 +16,7 @@
 
 
         <activity
-            android:name=".Activity.Chat.ChatForum"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".Activity.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +37,8 @@
             android:exported="true"/>
         <activity android:name=".Activity.UpdateForumActivity"
             android:exported="true"/>
-        <activity android:name=".Activity.Login"
+        <activity android:name=".Activity.Chat.ChatForum"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true"/>
         <activity android:name=".Activity.SignUp"
             android:exported="true"/>
