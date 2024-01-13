@@ -63,4 +63,6 @@
     <string name="product_name">Product Name</string>
     <string name="brand_name">Brand name</string>
     <string name="enter_your_product_brand_name">Enter your product brand name:</string>
+    <string name="search_product">Enter search value\n</string>
+    <string name="create_product">Create Product\n</string>
 </resources>

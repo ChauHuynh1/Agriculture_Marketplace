@@ -16,10 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Forum.Repository.ForumRepository;
+import com.example.agriculture_marketplace.Helpers.UserManager;
 import com.example.agriculture_marketplace.MemberForum.MemberForumRepository;
 import com.example.agriculture_marketplace.R;
 import com.example.agriculture_marketplace.Rating.Repository.ForumRatingRepository;
 import com.example.agriculture_marketplace.User.Model.UserRepository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
@@ -34,6 +37,7 @@ public class BrowseForumActivity extends AppCompatActivity {
     private final UserRepository userRepository = new UserRepository();
     private ArrayList<Forum> forums;
     private TextView forumResultAmountTextView;
+    private TextView welcomeTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +54,10 @@ public class BrowseForumActivity extends AppCompatActivity {
     private void init() {
         searchForumEditText = findViewById(R.id.browse_forum_search);
         forumListLinearLayout = findViewById(R.id.browse_forum_list_view);
-
+        welcomeTextView = findViewById(R.id.browse_forum_welcome);
+        String username = UserManager.getInstance().getCurrentUser().getName();
+        String welcome = "Welcome, " +  username;
+        welcomeTextView.setText(welcome);
         CompletableFuture<ArrayList<Forum>> future = new ForumRepository().getAllForums();
         future.thenAccept(forums -> {
             renderForumList(forums);
