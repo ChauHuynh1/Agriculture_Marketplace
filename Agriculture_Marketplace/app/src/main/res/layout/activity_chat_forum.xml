@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Chat.ChatForum">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:id="@+id/main_toolbar"
+        tools:ignore="MissingConstraints">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello Vu!"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:layout_centerVertical="true"/>
+
+
+            <Button
+                android:id="@+id/btn_manageforum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#EBF9E9"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:text="Manage forum"
+                android:textAllCaps="false"
+                android:textColor="@color/textColor" />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+    <EditText
+        android:id="@+id/search_chatforum"
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/search_view_bg"
+        android:drawableLeft="@drawable/icon_search"
+        android:hint="Search"
+        android:minHeight="48dp"
+        android:layout_below="@id/main_toolbar"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_chatforum"
+        android:padding="10dp"
+        android:id="@+id/search_user_recycler_view"
+        />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_chatforum"
+        android:layout_above="@+id/divider"
+        android:id="@+id/main_frame_layout"
+        />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        tools:ignore="MissingConstraints"
+        android:id="@+id/divider"
+        android:layout_above="@id/bottomNavigationView"
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/textColor"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu" />
+
+
+
+</RelativeLayout>

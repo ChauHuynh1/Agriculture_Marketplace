@@ -12,8 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Agriculture_Marketplace"
         tools:targetApi="31">
+
+
+
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.Chat.ChatForum"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="MainActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.Chat.Chat"
+            android:exported="true"/>
         <activity android:name=".Activity.BrowseForumActivity"
             android:exported="true"/>
         <activity android:name=".Activity.ForumDetailActivity"
