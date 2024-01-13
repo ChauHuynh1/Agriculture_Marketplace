@@ -29,6 +29,7 @@
             app:layout_constraintHorizontal_bias="0.0">
 
             <TextView
+
                 android:id="@+id/browse_product_welcome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
