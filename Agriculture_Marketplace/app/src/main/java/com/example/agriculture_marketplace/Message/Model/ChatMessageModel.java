@@ -8,15 +8,22 @@ public class ChatMessageModel {
     private Timestamp timestamp;
     private String imageUrl;
 
-
-
     public ChatMessageModel() {
+        // Empty constructor required by Firebase for deserialization
     }
 
-    public ChatMessageModel(String message, String senderId, Timestamp timestamp,String imageUrl) {
+    public ChatMessageModel(String message, String senderId, Timestamp timestamp, String imageUrl) {
         this.message = message;
         this.senderId = senderId;
         this.timestamp = timestamp;
+        this.imageUrl = imageUrl;  // Corrected variable assignment
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -26,14 +33,6 @@ public class ChatMessageModel {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public String getSenderId() {

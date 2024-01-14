@@ -10,25 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2fbcf7e-8120-4d67-a4a7-de3be617e2f8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/FCMNotificationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/RecentChatRecyclerAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/drawable/icon_picture.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/recent_chat_recycler_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/drawable/icon_option.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatForum.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatForum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatRecyclerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatRecyclerAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Message/Model/ChatMessageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Message/Model/ChatMessageModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Message/Model/ChatroomModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Message/Model/ChatroomModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/User/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/User/Model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/utils/AndroidUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/utils/AndroidUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/utils/FirebaseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/utils/FirebaseUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_chat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_chat.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_chat_forum.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_chat_forum.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/chat_message_recycler_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/chat_message_recycler_row.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/update_forum.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/update_forum.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,9 +76,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="resourceFile" />
         <option value="layoutResourceFile" />
         <option value="Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -233,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705148622093</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update chat">
+      <created>1705230160494</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705230160494</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

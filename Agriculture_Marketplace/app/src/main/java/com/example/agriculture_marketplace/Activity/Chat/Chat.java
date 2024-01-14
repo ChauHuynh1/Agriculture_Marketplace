@@ -1,13 +1,19 @@
 package com.example.agriculture_marketplace.Activity.Chat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,6 +30,7 @@ import com.example.agriculture_marketplace.utils.AndroidUtil;
 import com.example.agriculture_marketplace.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import okhttp3.MediaType;
@@ -35,6 +42,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Collections;
@@ -53,14 +64,20 @@ public class Chat extends AppCompatActivity {
 
     Forum otherForum;
     User otherUser;
-    ImageButton backButton;
+    ImageButton backButton, sendPictureBtn;
     EditText messageInput;
     ImageButton sendMessage;
     RecyclerView recyclerView;
     TextView forum_detail_name;
+
     String chatroomId;
     ChatroomModel chatroomModel;
     ChatRecyclerAdapter adapter;
+    Uri fileUri;
+    private String checker = "", myUrl = "";
+    private StorageTask uploadTask;
+    ProgressDialog loadingBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +90,13 @@ public class Chat extends AppCompatActivity {
         });
 
         sendMessage = findViewById(R.id.message_send_btn);
+
+        loadingBar = new ProgressDialog(this);
+
+
+        sendPictureBtn = findViewById(R.id.picture_send_btn);
+        sendPictureBtn.setOnClickListener(v -> showFilePickerDialog());
+
         messageInput = findViewById(R.id.chat_message_input);
         recyclerView = findViewById(R.id.chat_recycle_view);
         forum_detail_name = findViewById(R.id.forum_detail_name);
@@ -102,94 +126,125 @@ public class Chat extends AppCompatActivity {
         getOrCreateChatRoomModel();
     }
 
-    private void sendMessageToUser(String message) {
+    private void showFilePickerDialog() {
+        CharSequence options[] = new CharSequence[]{
+                "Images",
+                "PDF Files",
+                "Ms Word Files"
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select the File");
+        builder.setItems(options, (dialog, i) -> {
+            if (i == 0) {
+                checker = "image";
+                openImagePicker();
+            }
+            // Add conditions for other file types if needed
+        });
+        builder.show();
+    }
+
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent.createChooser(intent, "Select Image"), 438);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 438 && resultCode == RESULT_OK &&
+                data != null && data.getData() != null) {
+            fileUri = data.getData();
+            if (!checker.equals("image")) {
+                // Handle other file types if needed
+            } else {
+                uploadImageToFirebase();
+            }
+        } else {
+            Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void uploadImageToFirebase() {
+        if (fileUri != null) {
+            loadingBar.setTitle("Sending Image");
+            loadingBar.setMessage("Please wait, we are sending image..");
+            loadingBar.setCanceledOnTouchOutside(false);
+            loadingBar.show();
+
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Image Files");
+            StorageReference filePath = storageReference.child(UUID.randomUUID().toString() + ".jpg");
+
+            uploadTask = filePath.putFile(fileUri);
+            uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                return filePath.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Uri downloadUrl = (Uri) task.getResult();
+                    myUrl = downloadUrl.toString();
+                    sendMessageToUser("");
+                } else {
+                    loadingBar.dismiss();
+                    Toast.makeText(Chat.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void sendMessageToUser(String caption) {
         if (chatroomModel == null) {
             return;
-        }chatroomModel.setLastMessageTimestamp(Timestamp.now());
+        }
+        chatroomModel.setLastMessageTimestamp(Timestamp.now());
         chatroomModel.setLastMessageSenderId(FirebaseUtil.currentUserId());
-        chatroomModel.setLastMessage(message);
-        FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
 
-        String imagePath = "your_uploaded_image_path.jpg";
+        // Check if the message is a text message or an image URL
+        if (!myUrl.isEmpty()) {
+            // If myUrl is not empty, it means an image is being sent
+            chatroomModel.setLastMessage("Image");
 
-        ChatMessageModel chatMessageModel = new ChatMessageModel("", FirebaseUtil.currentUserId(), Timestamp.now(), imagePath);
+            // Update the ChatMessageModel to store the image URL
+            ChatMessageModel chatMessageModel = new ChatMessageModel("", FirebaseUtil.currentUserId(), Timestamp.now(), myUrl);
 
-        FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        messageInput.setText("");
-                        sendNotification(message);
-                    }
-                });
-    }
+            FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
 
-    void sendNotification(String message) {
-        FirebaseUtil.currentUserDetails().get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                User currentUser = task.getResult().toObject(User.class);
-                if (currentUser != null && otherForum != null && chatroomModel != null) {
-                    JSONObject jsonObject = new JSONObject();
-                    JSONObject notificationObj = new JSONObject();
+            FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
+                    .addOnCompleteListener(task -> {
+                        loadingBar.dismiss();
+                        if (task.isSuccessful()) {
+                            // Message sent successfully
+                            // You can also handle UI updates or other actions here
+                        } else {
+                            Toast.makeText(Chat.this, "Failed to send message", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            chatroomModel.setLastMessage(caption);
 
-                    try {
-                        notificationObj.put("title", otherForum.getName());
-                        notificationObj.put("body", currentUser.getName() + ": " + message);
+            ChatMessageModel chatMessageModel = new ChatMessageModel(caption, FirebaseUtil.currentUserId(), Timestamp.now(), "");
 
-                        JSONObject dataObj = new JSONObject();
-                        dataObj.put("userId", currentUser.getId());
+            FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
 
-                        jsonObject.put("notification", notificationObj);
-                        jsonObject.put("data", dataObj);
-                        String otherUserToken = otherUser.getFcmToken();
-                        Log.d("FCM", "Other User Token: " + otherUserToken);
-                        jsonObject.put("to", otherUserToken);
-
-                        callApi(jsonObject);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Log.e("Chat", "Current user, other forum, or chatroom model is null");
-                }
-            }
-        });
+            FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
+                    .addOnCompleteListener(task -> {
+                        loadingBar.dismiss();
+                        if (task.isSuccessful()) {
+                            // Message sent successfully
+                            // Clear the input bar
+                            messageInput.setText("");
+                        } else {
+                            Toast.makeText(Chat.this, "Failed to send message", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 
 
-
-
-    private void callApi(JSONObject jsonObject) {
-        MediaType JSON = MediaType.parse("application/json");
-        OkHttpClient client = new OkHttpClient();
-
-        String url = "https://fcm.googleapis.com/fcm/send";
-        RequestBody body = RequestBody.create(jsonObject.toString(), JSON);
-
-        Log.d("FCM", "Notification Payload: " + jsonObject.toString());
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .header("Authorization", "Bearer AAAAJ9D3jwE:APA91bGmNuAbqiXpO5X7MjiqIqIgbKeIqyRwIDHaLURK7PzWHNbqnVZZMYmxwCgAbN8KH234UTdtWtquTqCgy_NgLGgEm4Lnz53xsp4-u1wEesD0PPukNISbJDnaloLYlNkJ-IfOT1jP")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.e("FCM", "Failed to send notification: " + e.getMessage());
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    Log.d("FCM", "Notification sent successfully");
-                } else {
-                    Log.e("FCM", "Failed to send notification. Response: " + response.body().string());
-                }
-            }
-        });
-    }
 
 
 
@@ -217,6 +272,8 @@ public class Chat extends AppCompatActivity {
             });
         }
     }
+
+
 
     private void getOrCreateChatRoomModel() {
         String forumId = otherForum.getId();
@@ -271,6 +328,71 @@ public class Chat extends AppCompatActivity {
                     handleChatRoomError();
                 });
     }
+    void sendNotification(String message) {
+        FirebaseUtil.currentUserDetails().get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                User currentUser = task.getResult().toObject(User.class);
+                if (currentUser != null && otherForum != null && chatroomModel != null) {
+                    JSONObject jsonObject = new JSONObject();
+                    JSONObject notificationObj = new JSONObject();
+
+                    try {
+                        notificationObj.put("title", otherForum.getName());
+                        notificationObj.put("body", currentUser.getName() + ": " + message);
+
+                        JSONObject dataObj = new JSONObject();
+                        dataObj.put("userId", currentUser.getId());
+
+                        jsonObject.put("notification", notificationObj);
+                        jsonObject.put("data", dataObj);
+                        String otherUserToken = otherUser.getFcmToken();
+                        Log.d("FCM", "Other User Token: " + otherUserToken);
+                        jsonObject.put("to", otherUserToken);
+
+                        callApi(jsonObject);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.e("Chat", "Current user, other forum, or chatroom model is null");
+                }
+            }
+        });
+    }
+    private void callApi(JSONObject jsonObject) {
+        MediaType JSON = MediaType.parse("application/json");
+        OkHttpClient client = new OkHttpClient();
+
+        String url = "https://fcm.googleapis.com/fcm/send";
+        RequestBody body = RequestBody.create(jsonObject.toString(), JSON);
+
+        Log.d("FCM", "Notification Payload: " + jsonObject.toString());
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Authorization", "Bearer AAAAJ9D3jwE:APA91bGmNuAbqiXpO5X7MjiqIqIgbKeIqyRwIDHaLURK7PzWHNbqnVZZMYmxwCgAbN8KH234UTdtWtquTqCgy_NgLGgEm4Lnz53xsp4-u1wEesD0PPukNISbJDnaloLYlNkJ-IfOT1jP")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.e("FCM", "Failed to send notification: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    Log.d("FCM", "Notification sent successfully");
+                } else {
+                    Log.e("FCM", "Failed to send notification. Response: " + response.body().string());
+                }
+            }
+        });
+    }
+
+
 
     private void handleChatRoomError() {
         Toast.makeText(Chat.this, "Error getting chat room", Toast.LENGTH_SHORT).show();

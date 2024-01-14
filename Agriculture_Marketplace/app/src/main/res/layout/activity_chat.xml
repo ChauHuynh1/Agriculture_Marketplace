@@ -80,17 +80,18 @@
             android:elevation="4dp"
             android:hint="Write message here"
             android:padding="10dp" />
+
         <ImageButton
+            android:id="@+id/picture_send_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/icon_picture"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
+            android:layout_marginStart="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="@color/textColor"
-            android:id="@+id/picture_send_btn"
             android:padding="8dp"
-            android:layout_marginStart="10dp"/>
+            android:src="@drawable/icon_option"
+            app:tint="@color/textColor" />
 
         <ImageButton
             android:layout_width="48dp"
