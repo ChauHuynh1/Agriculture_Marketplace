@@ -2,6 +2,7 @@ package com.example.agriculture_marketplace.Message.Model;
 
 import com.google.firebase.Timestamp;
 
+import java.util.Date;
 import java.util.List;
 
 public class ChatroomModel {
@@ -21,6 +22,7 @@ public class ChatroomModel {
         this.userIds = userIds;
         this.lastMessageTimestamp = lastMessageTimestamp;
         this.lastMessageSenderId = lastMessageSenderId;
+
     }
 
     public String getChatroomId() {
@@ -49,6 +51,7 @@ public class ChatroomModel {
     public Timestamp getLastMessageTimestamp() {
         return lastMessageTimestamp;
     }
+
 
     public void setLastMessageTimestamp(Timestamp lastMessageTimestamp) {
         this.lastMessageTimestamp = lastMessageTimestamp;

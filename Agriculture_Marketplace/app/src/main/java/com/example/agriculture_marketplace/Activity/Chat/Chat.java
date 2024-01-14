@@ -19,12 +19,14 @@ import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Message.Model.ChatMessageModel;
 import com.example.agriculture_marketplace.Message.Model.ChatroomModel;
 import com.example.agriculture_marketplace.R;
+import com.example.agriculture_marketplace.User.Model.User;
 import com.example.agriculture_marketplace.utils.AndroidUtil;
 import com.example.agriculture_marketplace.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import okhttp3.MediaType;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -33,13 +35,24 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-
+import org.json.JSONObject;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.UUID;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+
+
 
 public class Chat extends AppCompatActivity {
 
     Forum otherForum;
+    User otherUser;
     ImageButton backButton;
     EditText messageInput;
     ImageButton sendMessage;
@@ -92,21 +105,93 @@ public class Chat extends AppCompatActivity {
     private void sendMessageToUser(String message) {
         if (chatroomModel == null) {
             return;
-        }
-        chatroomModel.setLastMessageTimestamp(Timestamp.now());
+        }chatroomModel.setLastMessageTimestamp(Timestamp.now());
         chatroomModel.setLastMessageSenderId(FirebaseUtil.currentUserId());
         chatroomModel.setLastMessage(message);
         FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
 
-        ChatMessageModel chatMessageModel = new ChatMessageModel(message, FirebaseUtil.currentUserId(), Timestamp.now());
+        String imagePath = "your_uploaded_image_path.jpg";
+
+        ChatMessageModel chatMessageModel = new ChatMessageModel("", FirebaseUtil.currentUserId(), Timestamp.now(), imagePath);
 
         FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         messageInput.setText("");
+                        sendNotification(message);
                     }
                 });
     }
+
+    void sendNotification(String message) {
+        FirebaseUtil.currentUserDetails().get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                User currentUser = task.getResult().toObject(User.class);
+                if (currentUser != null && otherForum != null && chatroomModel != null) {
+                    JSONObject jsonObject = new JSONObject();
+                    JSONObject notificationObj = new JSONObject();
+
+                    try {
+                        notificationObj.put("title", otherForum.getName());
+                        notificationObj.put("body", currentUser.getName() + ": " + message);
+
+                        JSONObject dataObj = new JSONObject();
+                        dataObj.put("userId", currentUser.getId());
+
+                        jsonObject.put("notification", notificationObj);
+                        jsonObject.put("data", dataObj);
+                        String otherUserToken = otherUser.getFcmToken();
+                        Log.d("FCM", "Other User Token: " + otherUserToken);
+                        jsonObject.put("to", otherUserToken);
+
+                        callApi(jsonObject);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.e("Chat", "Current user, other forum, or chatroom model is null");
+                }
+            }
+        });
+    }
+
+
+
+
+    private void callApi(JSONObject jsonObject) {
+        MediaType JSON = MediaType.parse("application/json");
+        OkHttpClient client = new OkHttpClient();
+
+        String url = "https://fcm.googleapis.com/fcm/send";
+        RequestBody body = RequestBody.create(jsonObject.toString(), JSON);
+
+        Log.d("FCM", "Notification Payload: " + jsonObject.toString());
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Authorization", "Bearer AAAAJ9D3jwE:APA91bGmNuAbqiXpO5X7MjiqIqIgbKeIqyRwIDHaLURK7PzWHNbqnVZZMYmxwCgAbN8KH234UTdtWtquTqCgy_NgLGgEm4Lnz53xsp4-u1wEesD0PPukNISbJDnaloLYlNkJ-IfOT1jP")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.e("FCM", "Failed to send notification: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    Log.d("FCM", "Notification sent successfully");
+                } else {
+                    Log.e("FCM", "Failed to send notification. Response: " + response.body().string());
+                }
+            }
+        });
+    }
+
+
 
     private void setupChatRecyclerView() {
         if (chatroomId != null) {

@@ -6,14 +6,18 @@ public class ChatMessageModel {
     private String message;
     private String senderId;
     private Timestamp timestamp;
+    private String imageUrl;
+
+
 
     public ChatMessageModel() {
     }
 
-    public ChatMessageModel(String message, String senderId, Timestamp timestamp) {
+    public ChatMessageModel(String message, String senderId, Timestamp timestamp,String imageUrl) {
         this.message = message;
         this.senderId = senderId;
         this.timestamp = timestamp;
+        this.imageUrl = imageUrl;
     }
 
     public String getMessage() {
@@ -22,6 +26,14 @@ public class ChatMessageModel {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getSenderId() {

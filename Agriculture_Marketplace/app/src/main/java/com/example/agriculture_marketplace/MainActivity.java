@@ -21,6 +21,8 @@ import com.example.agriculture_marketplace.User.Model.UserRepository;
 import com.example.agriculture_marketplace.databinding.ActivityForgotPassBinding;
 import com.example.agriculture_marketplace.databinding.ActivityLoginBinding;
 import com.example.agriculture_marketplace.databinding.ActivityMainBinding;
+import com.example.agriculture_marketplace.utils.FirebaseUtil;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 //        User user = new User("An", "an123@gmail.com", "123123123");
 //        userRepository.saveUserToFirebase(user);

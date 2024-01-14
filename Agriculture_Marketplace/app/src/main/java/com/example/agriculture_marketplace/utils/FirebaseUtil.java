@@ -8,8 +8,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 
 public class FirebaseUtil {
     public static String currentUserId() {
@@ -60,17 +68,28 @@ public class FirebaseUtil {
     }
 
 
-
-    public static DocumentReference getOtherUserFromChatroom(List<String> userIds) {
-        if (userIds.get(0).equals(FirebaseUtil.currentUserId())) {
-            return allUserCollectionReference().document(userIds.get(1));
+    public static DocumentReference getForumDetails(String forumId) {
+        if (forumId != null) {
+            return FirebaseFirestore.getInstance().collection("forums").document(forumId);
         } else {
-            return allUserCollectionReference().document(userIds.get(0));
+            return null;
         }
     }
 
 
+
+
+
+
     public static CollectionReference getChatroomMessageReference(String chatroomId) {
         return getChatroomReference(chatroomId).collection("chats");
+    }
+
+    public static CollectionReference allChatroomCollectionReference(){
+        return FirebaseFirestore.getInstance().collection("chatrooms");
+    }
+
+    public static String timestampToString(com.google.firebase.Timestamp timestamp) {
+        return new SimpleDateFormat("HH:mm", Locale.getDefault()).format(timestamp.toDate());
     }
 }

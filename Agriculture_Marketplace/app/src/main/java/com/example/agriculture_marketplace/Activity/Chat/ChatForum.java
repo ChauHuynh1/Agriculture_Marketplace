@@ -7,19 +7,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.agriculture_marketplace.Activity.Login;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Forum.Model.ForumAdapter;
+import com.example.agriculture_marketplace.MainActivity;
 import com.example.agriculture_marketplace.MemberForum.MemberForum;
 import com.example.agriculture_marketplace.R;
+import com.example.agriculture_marketplace.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -28,6 +33,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class ChatForum extends AppCompatActivity {
 
@@ -61,6 +67,7 @@ public class ChatForum extends AppCompatActivity {
                 imm.showSoftInput(searchInput, InputMethodManager.SHOW_IMPLICIT);
             }
         });
+
 
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -104,10 +111,20 @@ public class ChatForum extends AppCompatActivity {
             }
         });
         bottomNavigationView.setSelectedItemId(R.id.navigation_item2);
+
+        getFCMToken();
+    }
+    private void getFCMToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                String token = task.getResult();
+                Log.d("FCM", "Token: " + token);
+                FirebaseUtil.currentUserDetails().update("fcmToken", token);
+            }
+        });
     }
 
 
-// ...
 
     private void setUpRecyclerView(String currentUserId) {
         Query query = forumCollection.whereArrayContains("userIds", currentUserId).orderBy("name", Query.Direction.ASCENDING);
@@ -122,7 +139,7 @@ public class ChatForum extends AppCompatActivity {
         adapter.startListening();
     }
 
-// ...
+
 
 
 
@@ -137,6 +154,8 @@ public class ChatForum extends AppCompatActivity {
         adapter.updateOptions(options);
         adapter.notifyDataSetChanged();
     }
+
+
 
     @Override
     protected void onStart() {
@@ -158,4 +177,5 @@ public class ChatForum extends AppCompatActivity {
         if (adapter != null)
             adapter.startListening();
     }
+
 }
