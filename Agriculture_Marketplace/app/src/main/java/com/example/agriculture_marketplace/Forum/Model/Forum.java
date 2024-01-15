@@ -18,6 +18,8 @@ public class Forum implements Externalizable {
     private String imageUrl;
     private ChatroomModel[] messages;
     private List<String> memberUserIds;
+    private boolean isSelected;
+
 
 
 

@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/toc/baseline_toc_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/contact_phone/baseline_contact_phone_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="icon_option" />
+                            <entry key="color" value="0dc60d" />
+                            <entry key="outputName" value="icon_contact" />
                             <entry key="sourceFile" value="C:\Users\PC\AndroidStudioProjects\Agriculture_Marketplace" />
                           </map>
                         </option>

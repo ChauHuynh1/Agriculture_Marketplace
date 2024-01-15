@@ -78,7 +78,7 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<Chatroom
 
 
 
-    class ChatroomModelViewHolder extends RecyclerView.ViewHolder {
+    class ChatroomModelViewHolder extends RecyclerView.ViewHolder{
         TextView forum_detail_name;
         TextView last_message;
         TextView last_message_time;

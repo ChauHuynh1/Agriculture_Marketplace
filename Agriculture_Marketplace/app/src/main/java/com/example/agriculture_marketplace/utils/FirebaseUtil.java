@@ -75,6 +75,13 @@ public class FirebaseUtil {
             return null;
         }
     }
+    public static DocumentReference getMemberForumDetail(String forumId, String userId ) {
+        if (forumId != null && userId !=null) {
+            return FirebaseFirestore.getInstance().collection("member_forums").document(forumId);
+        } else {
+            return null;
+        }
+    }
 
 
 

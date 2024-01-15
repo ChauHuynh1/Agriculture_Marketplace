@@ -5,7 +5,7 @@
     android:background="@drawable/search_view_bg"
     android:layout_margin="10dp"
     android:elevation="2dp"
-    android:id="@+id/search_forum_recyler_row"
+    android:id="@+id/manage_forum_recycler_row"
     >
 
     <include layout="@layout/forum_pic_view"
@@ -15,18 +15,28 @@
         android:layout_margin="10dp"
         />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center">
+
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/forum_detail_name"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Forum name"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:id="@+id/forum_detail_name"/>
-    </LinearLayout>
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@+id/forum_detail_name" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

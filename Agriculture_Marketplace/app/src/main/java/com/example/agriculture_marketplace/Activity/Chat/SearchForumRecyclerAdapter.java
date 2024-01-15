@@ -48,12 +48,12 @@ public class SearchForumRecyclerAdapter extends FirestoreRecyclerAdapter<Forum, 
 
     class ForumModelViewHolder extends RecyclerView.ViewHolder {
         TextView forum_detail_name;
-        ImageView profilePic;
+        ImageView forumImage;
 
         public ForumModelViewHolder(@NonNull View itemView) {
             super(itemView);
             forum_detail_name = itemView.findViewById(R.id.forum_detail_name);
-            profilePic = itemView.findViewById(R.id.forumImageView);
+            forumImage = itemView.findViewById(R.id.forumImageView);
         }
     }
 }

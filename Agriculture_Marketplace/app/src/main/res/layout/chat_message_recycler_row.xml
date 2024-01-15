@@ -23,9 +23,9 @@
 
     </LinearLayout>
 
-    <!-- Left Chat Image -->
+    <!--right Chat Image -->
     <ImageView
-        android:id="@+id/message_receiver_img_view"
+        android:id="@+id/message_sender_img_view"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentEnd="true"
@@ -55,7 +55,7 @@
 
     <!-- Right Chat Image -->
     <ImageView
-        android:id="@+id/message_sender_img_view"
+        android:id="@+id/message_receiver_img_view"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentStart="true"

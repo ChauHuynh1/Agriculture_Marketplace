@@ -15,15 +15,22 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.agriculture_marketplace.Activity.Login;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Forum.Model.ForumAdapter;
+import com.example.agriculture_marketplace.Forum.Model.ManageForumModel;
 import com.example.agriculture_marketplace.MainActivity;
 import com.example.agriculture_marketplace.MemberForum.MemberForum;
+import com.example.agriculture_marketplace.Message.Model.ChatroomModel;
 import com.example.agriculture_marketplace.R;
+import com.example.agriculture_marketplace.User.Model.User;
 import com.example.agriculture_marketplace.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,18 +42,26 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChatForum extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     EditText searchInput;
     ChatFragment chatFragment;
     RecyclerView recyclerView;
-
+    TextView name;
     SearchForumRecyclerAdapter adapter;
+    Button delete;
+    ImageButton close;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference forumCollection = db.collection("forums");
 
-
+    private Button btnManageForum;
+    private RelativeLayout forumManageLayout;
+    private RecyclerView manageForumRecyclerView;
+    private ManageForumRecyclerAdapter manageForumAdapter;
 
 
     @Override
@@ -58,6 +73,34 @@ public class ChatForum extends AppCompatActivity {
         recyclerView = findViewById(R.id.search_user_recycler_view);
         searchInput = findViewById(R.id.search_chatforum);
         recyclerView.setVisibility(View.GONE);
+
+        name = findViewById(R.id.name);
+        FirebaseUtil.currentUserDetails().get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                User currentUser = documentSnapshot.toObject(User.class);
+                if (currentUser != null) {
+                    String userName = currentUser.getName();
+                    name.setText("Hi " + userName + "!");
+                }
+            }
+        }).addOnFailureListener(e -> {
+            // Handle the failure to fetch user details
+            Log.e("ChatForum", "Error fetching user details: " + e.getMessage());
+        });
+
+        // manage forum
+        btnManageForum = findViewById(R.id.btn_manageforum);
+        forumManageLayout = findViewById(R.id.forum_manage_layout);
+        manageForumRecyclerView = findViewById(R.id.mange_forum_recycler_view);
+        delete = findViewById(R.id.btn_delete);
+        close = findViewById(R.id.close_btn);
+
+        btnManageForum.setOnClickListener(view -> showManageForumLayout());
+
+        close.setOnClickListener(view -> hideManageForumLayout());
+
+
+        delete.setOnClickListener(view -> deleteSelectedChatRoom());
 
         searchInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +116,6 @@ public class ChatForum extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
@@ -83,7 +125,6 @@ public class ChatForum extends AppCompatActivity {
                     recyclerView.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -113,7 +154,71 @@ public class ChatForum extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.navigation_item2);
 
         getFCMToken();
+        initializeChatForum();
     }
+
+
+    // manage forum Function
+// Call this method in onCreate or wherever appropriate
+    private void initializeChatForum() {
+        setUpManageForumRecyclerView();
+    }
+
+    private void setUpManageForumRecyclerView() {
+        Query query = FirebaseFirestore.getInstance().collection("chatrooms");
+        FirestoreRecyclerOptions<ManageForumModel> options = new FirestoreRecyclerOptions.Builder<ManageForumModel>()
+                .setQuery(query, ManageForumModel.class)
+                .build();
+
+        // Initialize and set up the manage forum adapter
+        manageForumAdapter = new ManageForumRecyclerAdapter(options.getSnapshots());
+
+        // Set up the RecyclerView
+        manageForumRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        manageForumRecyclerView.setAdapter(manageForumAdapter);
+    }
+
+    private void showManageForumLayout() {
+        forumManageLayout.setVisibility(View.VISIBLE);
+        List<ChatroomModel> chatroomDataList = new ArrayList<>();
+
+        // Create an instance of RecentChatRecyclerAdapter
+        RecentChatRecyclerAdapter recentChatAdapter = new RecentChatRecyclerAdapter(
+                new FirestoreRecyclerOptions.Builder<ChatroomModel>().setQuery(
+                        FirebaseFirestore.getInstance().collection("chatrooms"),
+                        ChatroomModel.class
+                ).build(),
+                this
+        );
+        chatroomDataList.addAll(recentChatAdapter.getSnapshots());
+
+        List<ManageForumModel> manageForumDataList = convertToManageForumModelList(chatroomDataList);
+
+        manageForumAdapter.setData(manageForumDataList);
+    }
+
+
+    private List<ManageForumModel> convertToManageForumModelList(List<ChatroomModel> chatroomDataList) {
+        List<ManageForumModel> manageForumDataList = new ArrayList<>();
+        for (ChatroomModel chatroom : chatroomDataList) {
+            ManageForumModel manageForumModel = new ManageForumModel(chatroom.getForumId(), chatroom.getChatroomId());
+            manageForumDataList.add(manageForumModel);
+        }
+        return manageForumDataList;
+    }
+
+
+
+
+
+    private void hideManageForumLayout() {
+        forumManageLayout.setVisibility(View.GONE);
+
+    }
+    private void deleteSelectedChatRoom() {
+    }
+
+
     private void getFCMToken() {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -127,17 +232,25 @@ public class ChatForum extends AppCompatActivity {
 
 
     private void setUpRecyclerView(String currentUserId) {
-        Query query = forumCollection.whereArrayContains("userIds", currentUserId).orderBy("name", Query.Direction.ASCENDING);
+        // Query to fetch forums where the current user is a member
+        Query query = FirebaseFirestore.getInstance().collection("member_forums")
+                .whereEqualTo("userId", currentUserId);
 
         FirestoreRecyclerOptions<Forum> options = new FirestoreRecyclerOptions.Builder<Forum>()
                 .setQuery(query, Forum.class)
                 .build();
 
+        // Use the options to initialize the adapter
         adapter = new SearchForumRecyclerAdapter(options, this);
+
+        // Set up the RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        // Start listening for changes in the data
         adapter.startListening();
     }
+
 
 
 

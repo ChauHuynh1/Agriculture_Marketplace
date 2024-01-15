@@ -31,6 +31,7 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
     protected void onBindViewHolder(@NonNull ChatModelViewHolder holder, int position, @NonNull ChatMessageModel model) {
         boolean isCurrentUser = model.getSenderId().equals(FirebaseUtil.currentUserId());
 
+        // Set up text message layouts
         if (isCurrentUser) {
             holder.leftChatLayout.setVisibility(View.GONE);
             holder.rightChatLayout.setVisibility(View.VISIBLE);
@@ -43,6 +44,11 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
 
         // Check if there is an image URL
         if (model.getImageUrl() != null && !model.getImageUrl().isEmpty()) {
+            // If there's an image URL, hide text message layouts
+            holder.rightChatLayout.setVisibility(View.GONE);
+            holder.leftChatLayout.setVisibility(View.GONE);
+
+            // Display the appropriate ImageView based on the sender
             if (isCurrentUser) {
                 holder.messageSenderImgView.setVisibility(View.VISIBLE);
                 Glide.with(context).load(model.getImageUrl()).into(holder.messageSenderImgView);
@@ -51,6 +57,7 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
                 Glide.with(context).load(model.getImageUrl()).into(holder.messageReceiverImgView);
             }
         } else {
+            // If no image URL, hide image views
             holder.messageSenderImgView.setVisibility(View.GONE);
             holder.messageReceiverImgView.setVisibility(View.GONE);
         }

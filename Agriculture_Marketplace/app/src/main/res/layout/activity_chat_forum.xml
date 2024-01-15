@@ -81,6 +81,61 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="-3dp" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/forum_manage_layout"
+        android:layout_below="@id/search_user_recycler_view"
+        android:layout_above="@+id/divider"
+        android:background="@drawable/search_view_bg"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:text="Forum Detail"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/close_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:src="@drawable/icon_close"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/close_btn"
+            android:padding="10dp"
+            android:id="@+id/mange_forum_recycler_view"
+            />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_delete"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/Red"
+            android:ems="11"
+            android:text="Delete Forum"
+            tools:ignore="MissingConstraints" />
+
+
+
+
+
+    </RelativeLayout>
+
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="2dp"
