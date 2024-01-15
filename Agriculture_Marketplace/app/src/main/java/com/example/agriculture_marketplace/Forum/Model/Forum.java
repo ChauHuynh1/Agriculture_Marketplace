@@ -1,12 +1,13 @@
 package com.example.agriculture_marketplace.Forum.Model;
 
-import com.example.agriculture_marketplace.Message.Model.Message;
+import com.example.agriculture_marketplace.Message.Model.ChatroomModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Arrays;
+import java.util.List;
 
 public class Forum implements Externalizable {
     private String id;
@@ -15,7 +16,10 @@ public class Forum implements Externalizable {
     private String description;
     private String ownerId;
     private String imageUrl;
-    private Message[] messages;
+    private ChatroomModel[] messages;
+    private List<String> memberUserIds;
+    private boolean isSelected;
+
 
 
 
@@ -42,6 +46,7 @@ public class Forum implements Externalizable {
         this.ownerId = forum.ownerId;
         this.imageUrl = forum.imageUrl;
     }
+
     //Methods
     public void addMessage() {
         //TODO

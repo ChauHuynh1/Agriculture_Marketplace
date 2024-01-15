@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.agriculture_marketplace.Activity.Chat.Chat;
 import com.example.agriculture_marketplace.Helpers.UserManager;
 import com.example.agriculture_marketplace.MainActivity;
 import com.example.agriculture_marketplace.R;
@@ -184,6 +184,12 @@ public class Login extends AppCompatActivity {
 //        super.onStart();
 //        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //        if (user!= null){
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
+
 //
 //            finish();
 //        }
