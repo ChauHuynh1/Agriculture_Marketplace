@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.agriculture_marketplace.Activity.Chat.ChatForum;
 import com.example.agriculture_marketplace.Activity.Login;
 import com.example.agriculture_marketplace.User.Model.User;
 import com.example.agriculture_marketplace.User.Model.UserRepository;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
     TextView headerName, headerEmail;
-    LinearLayout logout;
+    LinearLayout logout, aboutUs;
     private static final String TAG = "MainActivity";
     private final UserRepository userRepository = new UserRepository();
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         menu = findViewById(R.id.menu);
         logout = findViewById(R.id.logout);
+        aboutUs= findViewById(R.id.aboutUs);
 
         // Initialize the header views
         headerName = findViewById(R.id.header_name);
@@ -48,6 +50,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Logout", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, Login.class));
+            }
+        });
+
+        aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ChatForum.class));
             }
         });
 

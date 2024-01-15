@@ -49,6 +49,7 @@ import com.google.firebase.storage.StorageTask;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -196,53 +197,54 @@ public class Chat extends AppCompatActivity {
         }
     }
 
+    // Existing code...
+
     private void sendMessageToUser(String caption) {
         if (chatroomModel == null) {
             return;
         }
-        chatroomModel.setLastMessageTimestamp(Timestamp.now());
-        chatroomModel.setLastMessageSenderId(FirebaseUtil.currentUserId());
 
-        // Check if the message is a text message or an image URL
-        if (!myUrl.isEmpty()) {
-            // If myUrl is not empty, it means an image is being sent
-            chatroomModel.setLastMessage("Image");
+        // Fetch sender's username
+        FirebaseUtil.currentUserDetails().get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                User currentUser = task.getResult().toObject(User.class);
+                if (currentUser != null) {
+                    String senderUsername = currentUser.getName();
 
-            // Update the ChatMessageModel to store the image URL
-            ChatMessageModel chatMessageModel = new ChatMessageModel("", FirebaseUtil.currentUserId(), Timestamp.now(), myUrl);
+                    // Create a ChatMessageModel with senderUsername
+                    ChatMessageModel chatMessageModel = new ChatMessageModel();
+                    chatMessageModel.setSenderId(FirebaseUtil.currentUserId());
+                    chatMessageModel.setTimestamp(Timestamp.now());
+                    chatMessageModel.setSenderUsername(senderUsername);
+                    chatMessageModel.setMessage(senderUsername + ": \n" + caption);
+                    chatMessageModel.setImageUrl(myUrl);
 
-            FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
+                    // Add the ChatMessageModel to the chatroom
+                    FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
+                            .addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    // Message sent successfully
 
-            FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
-                    .addOnCompleteListener(task -> {
-                        loadingBar.dismiss();
-                        if (task.isSuccessful()) {
-                            // Message sent successfully
-                            // You can also handle UI updates or other actions here
-                        } else {
-                            Toast.makeText(Chat.this, "Failed to send message", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            chatroomModel.setLastMessage(caption);
+                                    // Update lastMessage in ChatroomModel
+                                    chatroomModel.setLastMessage(senderUsername + ": " + caption);
+                                    chatroomModel.setLastMessageTimestamp(Timestamp.now());
+                                    FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
 
-            ChatMessageModel chatMessageModel = new ChatMessageModel(caption, FirebaseUtil.currentUserId(), Timestamp.now(), "");
-
-            FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
-
-            FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
-                    .addOnCompleteListener(task -> {
-                        loadingBar.dismiss();
-                        if (task.isSuccessful()) {
-                            // Message sent successfully
-                            // Clear the input bar
-                            messageInput.setText("");
-                        } else {
-                            Toast.makeText(Chat.this, "Failed to send message", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
+                                    // Clear the input bar
+                                    messageInput.setText("");
+                                } else {
+                                    Toast.makeText(Chat.this, "Failed to send message", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            } else {
+                // Handle errors
+                Toast.makeText(Chat.this, "Error fetching user details", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
 
 
 
@@ -281,8 +283,7 @@ public class Chat extends AppCompatActivity {
 
         CollectionReference chatRoomsCollection = FirebaseFirestore.getInstance().collection("chatrooms");
         Query query = chatRoomsCollection
-                .whereEqualTo("forumId", forumId)
-                .whereArrayContains("userIds", currentUserId);
+                .whereEqualTo("forumId", forumId);
 
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -290,6 +291,10 @@ public class Chat extends AppCompatActivity {
                 if (document != null) {
                     handleExistingChatRoom(document);
                     chatroomId = document.getId();
+
+                    // Add the current user to the existing chat room's user IDs
+                    addUserToChatRoom(currentUserId);
+
                     setupChatRecyclerView();
                 } else {
                     createAndHandleNewChatRoom(forumId, currentUserId);
@@ -299,6 +304,7 @@ public class Chat extends AppCompatActivity {
             }
         });
     }
+
 
 
     private DocumentSnapshot getFirstDocument(QuerySnapshot querySnapshot) {
@@ -323,11 +329,38 @@ public class Chat extends AppCompatActivity {
                 .set(chatroomModel)
                 .addOnSuccessListener(aVoid -> {
                     chatroomId = newChatRoomId;
+                    addUserToChatRoom(currentUserId); // Add the current user to the new chat room
+                    setupChatRecyclerView();
                 })
                 .addOnFailureListener(e -> {
                     handleChatRoomError();
                 });
     }
+
+
+    private void addUserToChatRoom(String userId) {
+        if (chatroomModel != null) {
+            List<String> userIds = chatroomModel.getUserIds();
+            if (!userIds.contains(userId)) {
+                userIds.add(userId);
+                FirebaseFirestore.getInstance().collection("chatrooms")
+                        .document(chatroomId)
+                        .update("userIds", userIds)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Log.d("Chat", "User added to chat room successfully");
+                            } else {
+                                handleChatRoomError();
+                            }
+                        });
+            }
+        }
+    }
+
+
+
+
+
     void sendNotification(String message) {
         FirebaseUtil.currentUserDetails().get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

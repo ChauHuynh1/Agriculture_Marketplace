@@ -3,6 +3,15 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
+    <!-- Sender Username TextView -->
+    <TextView
+        android:id="@+id/sender_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
     <!-- Left Chat Layout -->
     <LinearLayout
         android:id="@+id/left_chat_layout"
@@ -23,7 +32,7 @@
 
     </LinearLayout>
 
-    <!--right Chat Image -->
+    <!-- right Chat Image -->
     <ImageView
         android:id="@+id/message_sender_img_view"
         android:layout_width="150dp"

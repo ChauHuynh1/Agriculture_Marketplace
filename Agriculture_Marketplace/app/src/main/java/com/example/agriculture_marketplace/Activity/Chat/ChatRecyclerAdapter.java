@@ -42,6 +42,14 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
             holder.leftChatTextview.setText(model.getMessage());
         }
 
+        // Set sender's username
+        if (model.getSenderUsername() != null && !model.getSenderUsername().isEmpty()) {
+            holder.senderTextView.setVisibility(View.VISIBLE);
+            holder.senderTextView.setText(model.getSenderUsername());
+        } else {
+            holder.senderTextView.setVisibility(View.GONE);
+        }
+
         // Check if there is an image URL
         if (model.getImageUrl() != null && !model.getImageUrl().isEmpty()) {
             // If there's an image URL, hide text message layouts
@@ -73,10 +81,10 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
     }
 
     class ChatModelViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout leftChatLayout,rightChatLayout;
-        TextView leftChatTextview,rightChatTextview;
-        ImageView messageReceiverImgView,messageSenderImgView;
-
+        LinearLayout leftChatLayout, rightChatLayout;
+        TextView leftChatTextview, rightChatTextview;
+        ImageView messageReceiverImgView, messageSenderImgView;
+        TextView senderTextView;
 
         public ChatModelViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,7 +94,10 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
             rightChatTextview = itemView.findViewById(R.id.right_chat_textview);
             messageReceiverImgView = itemView.findViewById(R.id.message_receiver_img_view);
             messageSenderImgView = itemView.findViewById(R.id.message_sender_img_view);
-
+            senderTextView = itemView.findViewById(R.id.sender_text_view);
         }
     }
+
+
+
 }
