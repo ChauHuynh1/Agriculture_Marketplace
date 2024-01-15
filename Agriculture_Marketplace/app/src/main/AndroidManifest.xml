@@ -15,11 +15,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.BrowseForumActivity"
             android:exported="true"/>
@@ -30,7 +25,12 @@
         <activity android:name=".Activity.UpdateForumActivity"
             android:exported="true"/>
         <activity android:name=".Activity.Login"
-            android:exported="true"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activity.SignUp"
             android:exported="true"/>
         <activity android:name=".Activity.ForgotPass"

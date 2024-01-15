@@ -11,9 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.agriculture_marketplace.Helpers.UserManager;
 import com.example.agriculture_marketplace.MainActivity;
 import com.example.agriculture_marketplace.R;
 import com.example.agriculture_marketplace.User.Model.User;
+import com.example.agriculture_marketplace.User.Model.UserRepository;
 import com.example.agriculture_marketplace.databinding.ActivityLoginBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -83,8 +85,14 @@ public class Login extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 progressDialog.dismiss();
-                                startActivity(new Intent(Login.this, MainActivity.class));
-                                finish();
+                                UserRepository userRepository = new UserRepository();
+                                userRepository.getUserByEmail(email).thenAccept(user -> {
+                                    if (user != null) {
+                                        UserManager.getInstance().setCurrentUser(user);
+                                        startActivity(new Intent(Login.this, BrowseForumActivity.class));
+                                        finish();
+                                    }
+                                });
                             }else {
                                 progressDialog.dismiss();
                                 Toast.makeText(Login.this,task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT ).show();
@@ -136,6 +144,7 @@ public class Login extends AppCompatActivity {
                                         String email = user.getEmail();
 
                                         User userModel = new User(name, email, "", userId); // Set an empty password or handle it appropriately
+                                        UserManager.getInstance().setCurrentUser(userModel);
                                         FirebaseFirestore.getInstance().collection("users")
                                                 .document(userId)
                                                 .set(userModel)
@@ -144,7 +153,7 @@ public class Login extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> firestoreTask) {
                                                         if (firestoreTask.isSuccessful()) {
                                                             // User data added to Firestore successfully
-                                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                            Intent intent = new Intent(getApplicationContext(), BrowseForumActivity.class);
                                                             Toast.makeText(Login.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                                                             startActivity(intent);
                                                         } else {
@@ -170,14 +179,13 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user!= null){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user!= null){
+//
+//            finish();
+//        }
+//    }
 }
