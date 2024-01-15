@@ -43,7 +43,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/product_detail"
+                android:text="@string/update_product"
                 android:gravity="center"
                 android:textSize="36sp"
                 android:textStyle="bold" />
@@ -115,7 +115,7 @@
                 android:focusable="true">
 
                 <Spinner
-                    android:id="@+id/create_product_category_spinner"
+                    android:id="@+id/create_forum_category_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical" />
@@ -161,7 +161,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/border"
-                android:hint="@string/what_is_your_product_about"
+                android:hint="@string/what_is_your_forum_about"
                 android:padding="40dp"
                 android:textSize="18sp" />
 
@@ -175,7 +175,23 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/G469D7B"
-                android:text="@string/create_product"
+                android:text="@string/create_forum"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/update_forum_delete_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/E56376"
+                android:text="@string/delete_product"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"

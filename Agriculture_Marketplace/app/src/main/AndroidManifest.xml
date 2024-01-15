@@ -21,11 +21,6 @@
         <activity
             android:name=".Activity.Login"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
@@ -63,6 +58,25 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <activity android:name=".Activity.BrowseForumActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.ForumDetailActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.CreateForumActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.UpdateForumActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.Login"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.SignUp"
+            android:exported="true"/>
+        <activity android:name=".Activity.ForgotPass"
+            android:exported="true"/>
     </application>
 
 </manifest>

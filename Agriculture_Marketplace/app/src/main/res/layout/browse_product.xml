@@ -29,7 +29,8 @@
             app:layout_constraintHorizontal_bias="0.0">
 
             <TextView
-                android:id="@+id/nameTextWelcome"
+
+                android:id="@+id/browse_product_welcome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -62,7 +63,7 @@
                 android:layout_margin="10dp"
                 android:autofillHints=""
                 android:drawableEnd="@drawable/custom_search_icon"
-                android:hint="@string/search_forum"
+                android:hint="@string/search_product"
                 android:inputType="textLongMessage"
                 android:padding="15dp"
                 />

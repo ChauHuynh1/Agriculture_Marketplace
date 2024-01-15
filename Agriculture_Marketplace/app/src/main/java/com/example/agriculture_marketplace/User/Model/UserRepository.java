@@ -40,4 +40,22 @@ public class UserRepository {
                     System.out.println("saveUserToFirebase: Failed");
                 });
     }
+    public CompletableFuture<User> getUserByEmail(String email) {
+        CompletableFuture<User> future = new CompletableFuture<>();
+        db.collection(CollectionConfig.USER_COLLECTION)
+                .whereEqualTo("email", email)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        future.complete(null);
+                    } else {
+                        User user = queryDocumentSnapshots.getDocuments().get(0).toObject(User.class);
+                        future.complete(user);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    future.complete(null);
+                });
+        return future;
+    }
 }
