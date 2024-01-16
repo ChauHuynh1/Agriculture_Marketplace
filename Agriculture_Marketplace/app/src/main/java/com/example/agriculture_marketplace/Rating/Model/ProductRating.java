@@ -5,33 +5,32 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class ForumRating extends Rating implements Externalizable {
-    private String forumId;
-
-    public ForumRating(String userId, String forumId, String rating, String description) {
+public class ProductRating extends Rating implements Externalizable {
+    private String productId;
+    public ProductRating(String userId, String productId, String rating, String description) {
         super(userId, rating, description);
-        this.forumId = forumId;
+        this.productId = productId;
     }
 
-    public ForumRating() {
+    public ProductRating() {
         super();
-        this.forumId = "";
+        this.productId = "";
     }
 
-    public String getForumId() {
-        return forumId;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setForumId(String forumId) {
-        this.forumId = forumId;
+    public void setProductId(String forumId) {
+        this.productId = productId;
     }
 
     @Override
     public String toString() {
-        return "ForumRating{" +
+        return "ProductRating{" +
                 "userId=" + userId +
                 ", rating=" + rating +
-                "forumId=" + forumId +
+                "productId=" + productId +
                 ", description='" + description + '\'' +
                 '}';
     }
@@ -39,14 +38,14 @@ public class ForumRating extends Rating implements Externalizable {
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(userId);
-        out.writeObject(forumId);
+        out.writeObject(productId);
         out.writeObject(rating);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws ClassNotFoundException, IOException {
         userId = (String) in.readObject();
-        forumId = (String) in.readObject();
+        productId = (String) in.readObject();
         rating = (String) in.readObject();
     }
 }

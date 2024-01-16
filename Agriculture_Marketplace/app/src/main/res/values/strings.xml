@@ -73,4 +73,12 @@
     <string name="please_provide_your_feedback">Please provide your feedback</string>
     <string name="give_us_your_rating">Give us your rating</string>
     <string name="submit">Submit</string>
+    <string name="marketplace">Marketplace</string>
+    <string name="price">Price</string>
+    <string name="enter_your_price">Enter your price</string>
+    <string name="enter_product_quantity">Enter product quantity</string>
+    <string name="what_is_your_product_about">Description of your product</string>
+    <string name="do_you_want_to_delete_this_forum">Do you want to delete this forum?</string>
+    <string name="_100_000_vnd">100.000d</string>
+    <string name="buy">Buy Now</string>
 </resources>

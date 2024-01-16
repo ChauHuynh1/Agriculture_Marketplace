@@ -92,8 +92,9 @@ public class UpdateForumActivity extends AppCompatActivity {
     }
 
     public void deleteForum(){
+        String displayText = "Are you sure you want to delete " + currentForum.getName() + "?";
         //*Delete forum from firebase
-        ForumDeleteConfirmDialog dialog = new ForumDeleteConfirmDialog(this, () -> {
+        ForumDeleteConfirmDialog dialog = new ForumDeleteConfirmDialog(this, displayText, ()-> {
             ForumRepository forumRepository = new ForumRepository();
             forumRepository.deleteForum(currentForum.getId()).thenAccept(aVoid -> {
                 Toast.makeText(this, "Forum deleted", Toast.LENGTH_SHORT).show();

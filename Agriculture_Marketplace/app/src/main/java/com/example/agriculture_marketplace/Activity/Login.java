@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.agriculture_marketplace.Activity.Chat.Chat;
 import com.example.agriculture_marketplace.Helpers.UserManager;
+import com.example.agriculture_marketplace.MainActivity;
 import com.example.agriculture_marketplace.R;
 import com.example.agriculture_marketplace.User.Model.User;
 import com.example.agriculture_marketplace.User.Model.UserRepository;

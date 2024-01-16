@@ -93,18 +93,30 @@ public class ProductRepository {
                 });
         return future;
     }
-    public void updateProduct(Product product) {
+    public CompletableFuture<Product> updateProduct(Product product) {
+        CompletableFuture<Product> future = new CompletableFuture<>();
         db.collection("products")
                 .document(product.getId())
                 .set(product)
-                .addOnSuccessListener(aVoid -> System.out.println("updateProduct: Success"))
-                .addOnFailureListener(e -> System.out.println("updateProduct: Failed"));
+                .addOnSuccessListener(aVoid -> {
+                    future.complete(product);
+                })
+                .addOnFailureListener(e -> {
+                    future.complete(null);
+                });
+        return future;
     }
-    public void deleteProduct(String id) {
+    public CompletableFuture<Void> deleteProduct(String id) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
         db.collection("products")
                 .document(id)
                 .delete()
-                .addOnSuccessListener(aVoid -> System.out.println("deleteProduct: Success"))
-                .addOnFailureListener(e -> System.out.println("deleteProduct: Failed"));
+                .addOnSuccessListener(aVoid -> {
+                    future.complete(null);
+                })
+                .addOnFailureListener(e -> {
+                    future.complete(null);
+                });
+        return future;
     }
 }
