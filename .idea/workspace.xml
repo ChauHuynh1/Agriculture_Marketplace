@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2fbcf7e-8120-4d67-a4a7-de3be617e2f8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/CreateProductActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/BrowseForumActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/BrowseForumFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/CreateForumActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/CreateForumActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Product/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Product/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/create_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/create_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/menu/bottom_navigation_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/menu/bottom_navigation_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,15 +33,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "D:/Hoc/RMIT/AndroidDev/Group/Agriculture_Marketplace/Agriculture_Marketplace"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Hoc/RMIT/AndroidDev/Group/Agriculture_Marketplace/Agriculture_Marketplace&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

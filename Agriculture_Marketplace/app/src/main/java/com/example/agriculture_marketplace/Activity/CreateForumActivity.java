@@ -31,6 +31,7 @@ public class CreateForumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_forum);
         init();
+
     }
 
     public void init(){
@@ -76,7 +77,7 @@ public class CreateForumActivity extends AppCompatActivity {
         ForumRepository forumRepository = new ForumRepository();
         forumRepository.saveForumToFirebase(forum).thenAccept(res -> {
             Toast.makeText(this, "Create forum successfully", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, BrowseForumActivity.class);
+            Intent intent = new Intent(this, BrowseForumFragment.class);
             finish();
             startActivity(intent);
         });

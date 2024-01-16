@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.agriculture_marketplace.Helpers.UserManager;
-import com.example.agriculture_marketplace.MainActivity;
 import com.example.agriculture_marketplace.R;
 import com.example.agriculture_marketplace.User.Model.User;
 import com.example.agriculture_marketplace.User.Model.UserRepository;
@@ -89,14 +88,13 @@ public class Login extends AppCompatActivity {
                                 userRepository.getUserByEmail(email).thenAccept(user -> {
                                     if (user != null) {
                                         UserManager.getInstance().setCurrentUser(user);
-                                        startActivity(new Intent(Login.this, BrowseForumActivity.class));
+                                        startActivity(new Intent(Login.this, MainActivity.class));
                                         finish();
                                     }
                                 });
                             }else {
                                 progressDialog.dismiss();
                                 Toast.makeText(Login.this,task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT ).show();
-
                             }
                         }
                     });
@@ -153,7 +151,7 @@ public class Login extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> firestoreTask) {
                                                         if (firestoreTask.isSuccessful()) {
                                                             // User data added to Firestore successfully
-                                                            Intent intent = new Intent(getApplicationContext(), BrowseForumActivity.class);
+                                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                                             Toast.makeText(Login.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                                                             startActivity(intent);
                                                         } else {

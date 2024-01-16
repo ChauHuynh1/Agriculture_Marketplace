@@ -65,4 +65,11 @@
     <string name="enter_your_product_brand_name">Enter your product brand name:</string>
     <string name="search_product">Enter search value\n</string>
     <string name="create_product">Create Product\n</string>
+    <string name="price">Price\n</string>
+    <string name="enter_your_price">Enter your price</string>
+    <string name="unit">Unit\n</string>
+    <string name="enter_your_unit">Enter your product units\n</string>
+    <string name="what_is_your_product_about">Description of your product</string>
+    <string name="enter_product_quantity">Enter your product quantity\n</string>
+    <string name="marketplace">Marketplace</string>
 </resources>

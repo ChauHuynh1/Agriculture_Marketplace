@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Forum.Repository.ForumRepository;
@@ -21,13 +21,11 @@ import com.example.agriculture_marketplace.MemberForum.MemberForumRepository;
 import com.example.agriculture_marketplace.R;
 import com.example.agriculture_marketplace.Rating.Repository.ForumRatingRepository;
 import com.example.agriculture_marketplace.User.Model.UserRepository;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
-public class BrowseForumActivity extends AppCompatActivity {
+public class BrowseForumFragment extends Fragment {
 
     private static final String TAG = "BrowseForumActivity";
     private EditText searchForumEditText;
@@ -39,22 +37,28 @@ public class BrowseForumActivity extends AppCompatActivity {
     private TextView forumResultAmountTextView;
     private TextView welcomeTextView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.browse_forum);
-        searchForumEditText = findViewById(R.id.browse_forum_search);
-        forumResultAmountTextView = findViewById(R.id.browse_forum_result_amount);
-        init();
+
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.browse_forum, container, false);
+        init(view);
+
+        searchForumEditText = view.findViewById(R.id.browse_forum_search);
+        forumResultAmountTextView = view.findViewById(R.id.browse_forum_result_amount);
         searchForumEditText.setOnEditorActionListener((v, actionId, event) -> {
             searchForum(searchForumEditText.getText().toString());
             return false;
         });
+        return view;
     }
-
-    private void init() {
-        searchForumEditText = findViewById(R.id.browse_forum_search);
-        forumListLinearLayout = findViewById(R.id.browse_forum_list_view);
-        welcomeTextView = findViewById(R.id.browse_forum_welcome);
+    private void init(View view) {
+        searchForumEditText = view.findViewById(R.id.browse_forum_search);
+        forumListLinearLayout = view.findViewById(R.id.browse_forum_list_view);
+        welcomeTextView = view.findViewById(R.id.browse_forum_welcome);
         String username = UserManager.getInstance().getCurrentUser().getName();
         String welcome = "Welcome, " +  username;
         welcomeTextView.setText(welcome);
@@ -66,7 +70,7 @@ public class BrowseForumActivity extends AppCompatActivity {
     }
 
     private void renderForumList(ArrayList<Forum> forums) {
-        ForumListAdapter forumListAdapter = new ForumListAdapter(this, forums);
+        ForumListAdapter forumListAdapter = new ForumListAdapter(getContext(), forums);
         forumListLinearLayout.setAdapter(forumListAdapter);
         String forumAmount = String.valueOf(forums.size()) + " results";
         forumResultAmountTextView.setText(forumAmount);

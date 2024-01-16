@@ -22,7 +22,7 @@ public class ProductRepository {
                     System.out.println("saveUserToFirebase: Failed");
                 });
     }
-    CompletableFuture<ArrayList<Product>> getAllProducts() {
+    public CompletableFuture<ArrayList<Product>> getAllProducts() {
         CompletableFuture<ArrayList<Product>> future = new CompletableFuture<>();
         db.collection("products")
                 .get()

@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/hi_chau_nguyen"
+                android:text= "@string/marketplace"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
@@ -106,7 +106,7 @@
                 <ListView
                     android:id="@+id/browse_product_list_view"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="480dp"
                     android:divider="@android:color/transparent"
                     android:dividerHeight="14.0sp" />
 
