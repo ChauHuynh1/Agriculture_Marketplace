@@ -40,16 +40,36 @@
             android:padding="10dp"
             />
 
-        <TextView
-            android:id="@+id/forum_detail_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:text="@string/farmer_saigon"
-            android:gravity="center"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            />
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/farmer_saigon"
+                android:layout_gravity="center"
+                android:textSize="36sp"
+                android:layout_marginStart="20dp"
+                android:textStyle="bold"
+                />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/edit_icon"
+                android:backgroundTint="@color/white"
+                android:layout_gravity="center"
+                android:textAllCaps="false" />
+
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/forum_detail_owner"

@@ -75,7 +75,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="12dp"
-          android:background="@drawable/editext_background"
+          android:background="@drawable/search_view_bg"
           android:drawableStart="@drawable/baseline_person"
           android:drawablePadding="10dp"
           android:ems="18"
@@ -108,7 +108,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="12dp"
-          android:background="@drawable/editext_background"
+          android:background="@drawable/search_view_bg"
           android:drawableStart="@drawable/baseline_email"
           android:drawablePadding="10dp"
           android:ems="18"
@@ -128,7 +128,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="12dp"
-          android:background="@drawable/editext_background"
+          android:background="@drawable/search_view_bg"
           android:drawableStart="@drawable/baseline_lock"
           android:drawablePadding="10dp"
           android:ems="18"
@@ -154,7 +154,7 @@
           android:elevation="0dp"
 
           android:text="@string/terms_and_conditions"
-          android:textColor="@color/textColor"
+          android:textColor="@color/G469D7B"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/password" />
 

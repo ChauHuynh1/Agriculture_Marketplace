@@ -65,11 +65,12 @@
     <string name="enter_your_product_brand_name">Enter your product brand name:</string>
     <string name="search_product">Enter search value\n</string>
     <string name="create_product">Create Product\n</string>
-    <string name="price">Price\n</string>
-    <string name="enter_your_price">Enter your price</string>
-    <string name="unit">Unit\n</string>
-    <string name="enter_your_unit">Enter your product units\n</string>
-    <string name="what_is_your_product_about">Description of your product</string>
-    <string name="enter_product_quantity">Enter your product quantity\n</string>
-    <string name="marketplace">Marketplace</string>
+    <string name="update_product">Update Product</string>
+    <string name="delete_product">Delete Product</string>
+    <string name="brand_name_da_lat_farmer">Brand name: Da Lat Farmer</string>
+    <string name="product_rating">Product Rating</string>
+    <string name="what_is_your_comment">What is your comment?</string>
+    <string name="please_provide_your_feedback">Please provide your feedback</string>
+    <string name="give_us_your_rating">Give us your rating</string>
+    <string name="submit">Submit</string>
 </resources>
