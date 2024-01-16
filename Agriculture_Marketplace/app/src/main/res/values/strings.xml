@@ -81,4 +81,10 @@
     <string name="do_you_want_to_delete_this_forum">Do you want to delete this forum?</string>
     <string name="_100_000_vnd">100.000d</string>
     <string name="buy">Buy Now</string>
+    <string name="forum_rating">Forum Rating</string>
+    <string name="rating">Rating</string>
+    <string name="nguyen_dang_huynh_chau">Nguyen Dang Huynh Chau</string>
+    <string name="the_apples_were_extremely_decious_i_really_enjoy">The apples were extremely decious! I really enjoy!</string>
+    <string name="this_is_the_forum_for_the_people_who_want_to_eat_fresh_fruit">This is the forum for the people who want to eat fresh fruit!</string>
+    <string name="great_forum">This is such a great forum to join! I have found some good sources for fresh fruit</string>
 </resources>

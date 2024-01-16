@@ -92,10 +92,6 @@
                 android:text="@string/planted_in_da_lat_from_the_best_vietnamese_farmer"
                 />
 
-
-
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -235,7 +231,73 @@
                 app:cornerRadius="10dp" />
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rating"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp">
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="@string/nguyen_dang_huynh_chau"
+                        android:textSize="20sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:backgroundTint="@android:color/white"
+                            android:contentDescription="@string/star_icon"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/star_icon" />
+
+                        <TextView
+                            android:id="@+id/product_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:text="@string/_4_5" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/product_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/the_apples_were_extremely_decious_i_really_enjoy"
+                        />
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>

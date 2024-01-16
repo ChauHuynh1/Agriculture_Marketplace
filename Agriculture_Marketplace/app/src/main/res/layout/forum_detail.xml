@@ -4,191 +4,303 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/CDECC2"
-            app:navigationIcon="?android:attr/homeAsUpIndicator"
-            app:titleTextColor="#FFFFFF"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-
-        <ImageView
-            android:id="@+id/forumImageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@android:color/transparent"
-            android:scaleType="fitXY"
-            android:src="@drawable/sample_forum_image"
-            android:contentDescription="@string/forum_image"
-            android:padding="10dp"
-            />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:layout_margin="10dp">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/farmer_saigon"
-                android:layout_gravity="center"
-                android:textSize="36sp"
-                android:layout_marginStart="20dp"
-                android:textStyle="bold"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/CDECC2"
+                app:navigationIcon="?android:attr/homeAsUpIndicator"
+                app:titleTextColor="#FFFFFF"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/forumImageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/sample_forum_image"
+                android:contentDescription="@string/forum_image"
+                android:padding="10dp"
                 />
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/edit_icon"
-                android:backgroundTint="@color/white"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_margin="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/farmer_saigon"
+                    android:layout_gravity="center"
+                    android:textSize="36sp"
+                    android:layout_marginStart="20dp"
+                    android:textStyle="bold"
+                    />
+
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/edit_icon"
+                    android:backgroundTint="@color/white"
+                    android:layout_gravity="center"
+                    android:textAllCaps="false" />
+
+
+
+
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/forum_detail_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/owner_nguyen_dang_huynh_chau"
+                android:gravity="center"
+                />
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:textAllCaps="false" />
+                >
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/location_icon" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/ho_chi_minh_city"
+                    android:layout_gravity="center"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/addressLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                >
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/account_icon" />
+
+
+                <TextView
+                    android:id="@+id/forum_detail_member_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/_2_5k_members"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/star_icon" />
+
+
+                <TextView
+                    android:id="@+id/forum_detail_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/_4_5"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/forum_detail_rating_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/_1234_ratings"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/forum_detail_join_button"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/join_now"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/G469D7B"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"
+
+
+                />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@+id/forum_detail_join_button"
+                app:layout_constraintBottom_toTopOf="@+id/generalInfoTextView" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/general_information"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textStyle="bold"
+
+
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/this_is_the_forum_for_the_people_who_want_to_eat_fresh_fruit"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rating"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/nguyen_dang_huynh_chau"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:backgroundTint="@android:color/white"
+                        android:contentDescription="@string/star_icon"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/star_icon" />
+
+                    <TextView
+                        android:id="@+id/forum_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textStyle="bold"
+                        android:text="@string/_4_5" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/forum_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/great_forum"
+                    />
+
+
+
+            </LinearLayout>
+
+
+
 
 
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/forum_detail_owner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/owner_nguyen_dang_huynh_chau"
-            android:gravity="center"
-            />
+    </ScrollView>
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            >
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="55dp"
-                android:src="@drawable/location_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:text="@string/ho_chi_minh_city"
-                android:layout_gravity="center"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/addressLinearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            >
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="55dp"
-                android:src="@drawable/account_icon" />
-
-            <TextView
-                android:id="@+id/forum_detail_member_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:text="@string/_2_5k_members"
-                android:layout_gravity="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="55dp"
-                android:src="@drawable/star_icon" />
-
-            <TextView
-                android:id="@+id/forum_detail_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/_4_5"
-                android:layout_gravity="center"
-                android:layout_marginEnd="10dp"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/forum_detail_rating_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/_1234_ratings"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/forum_detail_join_button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/join_now"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/G469D7B"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="20sp"
-
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toBottomOf="@+id/forum_detail_join_button"
-            app:layout_constraintBottom_toTopOf="@+id/generalInfoTextView" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/general_information"
-            android:layout_gravity="center"
-            android:textSize="25sp"
-            android:textStyle="bold"
-
-            />
-
-
-    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
