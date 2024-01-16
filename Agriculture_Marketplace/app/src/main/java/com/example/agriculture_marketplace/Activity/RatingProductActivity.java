@@ -38,5 +38,10 @@ public class RatingProductActivity extends AppCompatActivity {
     private void submitRating() {
         ProductRatingRepository productRatingRepository = new ProductRatingRepository();
         ProductRating productRating = new ProductRating(UserManager.getInstance().getCurrentUser().getId(), product.getId(), String.valueOf(rating), binding.ratingItemProductDescription.getText().toString());
+
+        productRatingRepository.saveProductRatingToFirebase(productRating).thenAccept(aVoid -> {
+            finish();
+        }
+        );
     }
 }
