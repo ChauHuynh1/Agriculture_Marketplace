@@ -31,7 +31,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/product_rating"
+                android:text="@string/forum_rating"
                 android:gravity="center"
                 android:textSize="36sp"
                 android:textStyle="bold" />
@@ -43,7 +43,7 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:id="@+id/create_product_image"
+                    android:id="@+id/create_forum_image"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_alignParentStart="true"
@@ -55,35 +55,89 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_toEndOf="@id/create_product_image"
+                    android:layout_toEndOf="@id/create_forum_image"
                     android:layout_marginStart="16dp">
 
                     <TextView
-                        android:id="@+id/list_item_product_name"
+                        android:id="@+id/list_item_forum_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/apple_da_lat"
+                        android:text="@string/farmer_saigon"
                         android:textSize="20sp"/>
 
                     <TextView
-                        android:id="@+id/list_item_product_owner"
+                        android:id="@+id/list_item_forum_owner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/brand_name_da_lat_farmer"
+                        android:text="@string/owner_nguyen_dang_huynh_chau"
+                        android:layout_marginBottom="40dp"
                         />
 
 
-                    <TextView
-                        android:id="@+id/list_item_product_price"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2_99"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        />
+                        android:orientation="horizontal"
+                        >
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:backgroundTint="@android:color/white"
+                            android:contentDescription="@string/star_icon"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/star_icon" />
+
+                        <TextView
+                            android:id="@+id/list_item_forum_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:text="@string/_4_5" />
+
+                        <TextView
+                            android:id="@+id/list_item_forum_rating_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/_1234_ratings" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:backgroundTint="@android:color/white"
+                            android:contentDescription="@string/star_icon"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/account_icon" />
+
+                        <TextView
+                            android:id="@+id/forum_detail_member_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:text="@string/_2_5k_members" />
+
+
+                    </LinearLayout>
+
                 </LinearLayout>
+
+
             </RelativeLayout>
+
 
 
             <TextView
@@ -98,7 +152,7 @@
                 />
 
             <EditText
-                android:id="@+id/product_feedback"
+                android:id="@+id/forum_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@color/G808080"
@@ -127,7 +181,7 @@
                     />
 
                 <RatingBar
-                    android:id="@+id/product_rating_bar"
+                    android:id="@+id/forum_rating_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:numStars="5"
