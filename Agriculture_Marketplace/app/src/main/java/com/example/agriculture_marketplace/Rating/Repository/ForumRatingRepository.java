@@ -42,5 +42,28 @@ public class ForumRatingRepository {
                 });
         return future;
     };
+    public CompletableFuture<Void> saveForumRatingToFirebase(ForumRating forumRating) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        db.collection(CollectionConfig.FORUM_RATING_COLLECTION)
+                .add(forumRating)
+                .addOnSuccessListener(documentReference -> {
+                    String id = documentReference.getId();
+                    db.collection(CollectionConfig.FORUM_RATING_COLLECTION)
+                            .document(id)
+                            .update("id", id)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d(TAG, "saveForumRatingToFirebase: Success");
+                                future.complete(null);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.d(TAG, "saveForumRatingToFirebase: Failed");
+                                future.complete(null);
+                            });
+                })
+                .addOnFailureListener(e -> {
+                    Log.d(TAG, "saveForumRatingToFirebase: Failed");
+                });
+        return future;
+    }
 
 }
