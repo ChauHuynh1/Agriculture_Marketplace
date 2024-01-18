@@ -72,7 +72,7 @@ public class BrowseForumFragment extends Fragment {
         Log.d(TAG, "init: "+ UserManager.getInstance().getCurrentUser().toString());
         String welcome = "Welcome, " +  username;
         welcomeTextView.setText(welcome);
-        CompletableFuture<ArrayList<Forum>> future = new ForumRepository().getAllForums();
+        CompletableFuture<ArrayList<Forum>> future = new ForumRepository().getForumsUserNotJoined(UserManager.getInstance().getCurrentUser().getId());
         future.thenAccept(forums -> {
             renderForumList(forums);
             this.forums = forums;

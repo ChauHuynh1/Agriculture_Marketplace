@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.agriculture_marketplace.Config.CollectionConfig;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
+import com.example.agriculture_marketplace.MemberForum.MemberForumRepository;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
@@ -129,6 +130,23 @@ public class ForumRepository {
                     Log.d(TAG, "getForumsByOwnerId: Failed");
                     future.complete(null);
                 });
+        return future;
+    }
+    public CompletableFuture<ArrayList<Forum>> getForumsUserNotJoined(String userId) {
+        CompletableFuture<ArrayList<Forum>> future = new CompletableFuture<>();
+        MemberForumRepository memberForumRepository = new MemberForumRepository();
+        memberForumRepository.getForumUserNotJoined(userId).thenAccept(forumIds -> {
+            ArrayList<Forum> forums = new ArrayList<>();
+            for (String forumId : forumIds) {
+                getForumById(forumId).thenAccept(forum -> {
+                    forums.add(forum);
+                    if (forums.size() == forumIds.size()) {
+                        future.complete(forums);
+                    }
+                });
+            }
+        }
+        );
         return future;
     }
 }

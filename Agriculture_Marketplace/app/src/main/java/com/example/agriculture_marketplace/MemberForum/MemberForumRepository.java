@@ -3,6 +3,7 @@ package com.example.agriculture_marketplace.MemberForum;
 import com.example.agriculture_marketplace.Config.CollectionConfig;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 public class MemberForumRepository {
@@ -46,6 +47,30 @@ public class MemberForumRepository {
                 });
         return future;
     }
-
+    public CompletableFuture<ArrayList<String>> getForumUserNotJoined(String userId) {
+        CompletableFuture<ArrayList<String>> future = new CompletableFuture<>();
+        ArrayList<String> result = new ArrayList<>();
+        db.collection(CollectionConfig.MEMBER_FORUM_COLLECTION)
+                .whereEqualTo(USER_ID, userId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        System.out.println("getForumUserNotJoined: No forums found");
+                        future.complete(result);
+                    } else {
+                        System.out.println("getForumUserNotJoined: Success");
+                        ArrayList<MemberForum> memberForums = (ArrayList<MemberForum>) queryDocumentSnapshots.toObjects(MemberForum.class);
+                        for (MemberForum memberForum : memberForums) {
+                            result.add(memberForum.getForumId());
+                        }
+                        future.complete(result);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("getForumUserNotJoined: Failed");
+                    future.complete(result);
+                });
+        return future;
+    }
 
 }
