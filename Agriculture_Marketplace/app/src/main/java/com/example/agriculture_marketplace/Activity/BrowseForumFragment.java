@@ -1,12 +1,16 @@
 package com.example.agriculture_marketplace.Activity;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,10 +60,31 @@ public class BrowseForumFragment extends Fragment {
 
         searchForumEditText = view.findViewById(R.id.browse_forum_search);
         forumResultAmountTextView = view.findViewById(R.id.browse_forum_result_amount);
+
+
         searchForumEditText.setOnEditorActionListener((v, actionId, event) -> {
             searchForum(searchForumEditText.getText().toString());
             return false;
         });
+        searchForumEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Not needed for this example
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Perform search as the user types
+                searchForum(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Not needed for this example
+            }
+        });
+
+
         browseForumAddButton = view.findViewById(R.id.browse_forum_add_forum);
         browseForumAddButton.setVisibility(View.INVISIBLE);
         return view;

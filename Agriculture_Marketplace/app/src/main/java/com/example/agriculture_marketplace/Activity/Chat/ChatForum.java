@@ -22,6 +22,8 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.agriculture_marketplace.Activity.BrowseForumFragment;
+import com.example.agriculture_marketplace.Activity.BrowseProductFragment;
 import com.example.agriculture_marketplace.Activity.Login;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Forum.Model.ForumAdapter;
@@ -146,7 +148,17 @@ public class ChatForum extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.navigation_item2) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.main_frame_layout, chatFragment).commit();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_frame_layout, chatFragment)
+                            .commit();
+                } else if (item.getItemId() == R.id.navigation_item1) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_frame_layout, new BrowseForumFragment())
+                            .commit();
+                } else if (item.getItemId() == R.id.navigation_item3) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_frame_layout, new BrowseProductFragment())
+                            .commit();
                 }
                 return true;
             }

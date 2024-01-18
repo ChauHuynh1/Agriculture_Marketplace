@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the header views
         headerName = findViewById(R.id.header_name);
         headerEmail = findViewById(R.id.header_email);
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -65,8 +66,10 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+
         replaceFragment(new BrowseForumFragment());
         // Set up the navigation drawer
+
         menu.setOnClickListener(view -> drawerLayout.openDrawer(Gravity.LEFT));
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +79,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        aboutUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ChatForum.class));
-            }
-        });
         myForum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

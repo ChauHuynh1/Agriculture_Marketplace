@@ -12,11 +12,11 @@
     <list default="true" id="e2fbcf7e-8120-4d67-a4a7-de3be617e2f8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/BrowseForumFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/BrowseForumFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatRecyclerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatRecyclerAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatForum.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatForum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/FCMNotificationService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Message/Model/ChatMessageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Message/Model/ChatMessageModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/chat_message_recycler_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/chat_message_recycler_row.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,16 +108,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "C:/Users/PC/AndroidStudioProjects/Agriculture_Marketplace/Agriculture_Marketplace/app/src/main/res/drawable",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/PC/AndroidStudioProjects/Agriculture_Marketplace/Agriculture_Marketplace/app/src/main/res/drawable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="android.template.-1116258899">
       <recent name="com.example.agriculture_marketplace.Activity.Chat" />
