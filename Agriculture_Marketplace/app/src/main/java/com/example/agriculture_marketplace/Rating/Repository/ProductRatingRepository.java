@@ -12,11 +12,11 @@ public class ProductRatingRepository {
 
     public CompletableFuture<Void> saveProductRatingToFirebase(ProductRating productRating) {
         CompletableFuture<Void> future = new CompletableFuture<>();
-        db.collection("productRatings")
+        db.collection(CollectionConfig.PRODUCT_RATING_COLLECTION)
                 .add(productRating)
                 .addOnSuccessListener(documentReference -> {
                     String id = documentReference.getId();
-                    db.collection("productRatings")
+                    db.collection(CollectionConfig.PRODUCT_RATING_COLLECTION)
                             .document(id)
                             .update("id", id)
                             .addOnSuccessListener(aVoid -> {
@@ -48,9 +48,9 @@ public class ProductRatingRepository {
                     } else {
                         System.out.println("getProductRatingAndAmount: Success");
                         ArrayList<ProductRating> productRatings = (ArrayList<ProductRating>) queryDocumentSnapshots.toObjects(ProductRating.class);
-                        int totalRating = 0;
+                        Double totalRating = 0.0;
                         for (ProductRating productRating : productRatings) {
-                            totalRating += Integer.parseInt(productRating.getRating());
+                            totalRating += Double.parseDouble(productRating.getRating());
                         }
                         result.add(String.valueOf(totalRating));
                         result.add(String.valueOf(productRatings.size()));

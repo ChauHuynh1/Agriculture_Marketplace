@@ -59,7 +59,7 @@ public class MyProductActivity extends AppCompatActivity implements OnProductCli
 
     @Override
     public void onProductClick(Product product) {
-        Intent intent = new Intent(this, ProductDetailActivity.class);
+        Intent intent = new Intent(this, UpdateProductActivity.class);
         intent.putExtra("product", product);
         someActivityResultLauncher.launch(intent);
     }

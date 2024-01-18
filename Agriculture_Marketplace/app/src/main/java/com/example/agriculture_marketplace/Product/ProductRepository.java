@@ -50,7 +50,6 @@ public class ProductRepository {
                 })
                 .addOnFailureListener(e -> {
                     future.complete(null);
-                    Log.d(TAG, "getAllProducts:  + Failed");
                 });
         return future;
     }

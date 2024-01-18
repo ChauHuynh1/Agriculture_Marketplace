@@ -3,6 +3,7 @@ package com.example.agriculture_marketplace.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class BrowseForumFragment extends Fragment {
         forumListLinearLayout = view.findViewById(R.id.browse_forum_list_view);
         welcomeTextView = view.findViewById(R.id.browse_forum_welcome);
         String username = UserManager.getInstance().getCurrentUser().getName();
+        Log.d(TAG, "init: "+ UserManager.getInstance().getCurrentUser().toString());
         String welcome = "Welcome, " +  username;
         welcomeTextView.setText(welcome);
         CompletableFuture<ArrayList<Forum>> future = new ForumRepository().getAllForums();

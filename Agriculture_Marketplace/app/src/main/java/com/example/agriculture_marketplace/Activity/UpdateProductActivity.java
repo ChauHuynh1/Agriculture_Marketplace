@@ -95,7 +95,7 @@ public class UpdateProductActivity extends AppCompatActivity {
         String[] categories = ProductConfig.PRODUCT_CATEGORY_LIST;
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
         binding.updateProductCategorySpinner.setAdapter(adapter);
-        binding.updateProductCategorySpinner.setSelection(0);
+        binding.updateProductCategorySpinner.setSelection(adapter.getPosition(product.getCategory()));
     }
 
 }

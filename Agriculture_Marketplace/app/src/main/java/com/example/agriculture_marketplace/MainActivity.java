@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.agriculture_marketplace.Activity.BrowseForumFragment;
 import com.example.agriculture_marketplace.Activity.BrowseProductFragment;
+import com.example.agriculture_marketplace.Activity.Chat.Chat;
 import com.example.agriculture_marketplace.Activity.Chat.ChatForum;
 import com.example.agriculture_marketplace.Activity.Login;
 import com.example.agriculture_marketplace.Activity.MyForumActivity;
@@ -58,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.navigation_item1) {
                 replaceFragment(new BrowseForumFragment());
             } else if (id == R.id.navigation_item2) {
-                replaceFragment(new BrowseProductFragment());
-            } else if (id == R.id.navigation_item3) {
                startActivity(new Intent(MainActivity.this, ChatForum.class));
+            } else if (id == R.id.navigation_item3) {
+                replaceFragment(new BrowseProductFragment());
             }
             return true;
         });

@@ -66,6 +66,12 @@
             android:exported="true"/>
         <activity android:name=".Activity.CreateProductActivity"
             android:exported="true"/>
+        <activity android:name=".Activity.ProductDetailActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.UpdateProductActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.RatingProductActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
