@@ -58,15 +58,15 @@
 
 
                 <TextView
+                    android:id="@+id/forum_detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
                     android:padding="5dp"
                     android:text="@string/farmer_saigon"
-                    android:layout_gravity="center"
                     android:textSize="36sp"
-                    android:layout_marginStart="20dp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
 
                 <ImageButton

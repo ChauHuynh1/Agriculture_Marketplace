@@ -17,6 +17,8 @@ import com.example.agriculture_marketplace.Config.ForumConfig;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Forum.Repository.ForumRepository;
 import com.example.agriculture_marketplace.Helpers.RenderImageHelper;
+import com.example.agriculture_marketplace.Helpers.UserManager;
+import com.example.agriculture_marketplace.MainActivity;
 import com.example.agriculture_marketplace.R;
 
 public class CreateForumActivity extends AppCompatActivity {
@@ -68,18 +70,19 @@ public class CreateForumActivity extends AppCompatActivity {
         String name = nameEditText.getText().toString();
         String description = descriptionEditText.getText().toString();
         String category = categorySpinner.getSelectedItem().toString();
-        if (name.isEmpty() || description.isEmpty() || category.isEmpty() || imageUrl.isEmpty()){
+        if (name.isEmpty() || description.isEmpty() || category.isEmpty() ){
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
             return;
         }
         //TODO: Change the owner id to the current user id with FirebaseAuth
-        Forum forum = new Forum(name, description, category,"6guQj41QNErU1U5i1YNx", imageUrl);
+        String userId = UserManager.getInstance().getCurrentUser().getId();
+        Forum forum = new Forum(name, description, category,userId, imageUrl);
         ForumRepository forumRepository = new ForumRepository();
         forumRepository.saveForumToFirebase(forum).thenAccept(res -> {
             Toast.makeText(this, "Create forum successfully", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, BrowseForumFragment.class);
+            Intent intent = new Intent(this, MyForumActivity.class);
+            setResult(RESULT_OK, intent);
             finish();
-            startActivity(intent);
         });
     }
 }

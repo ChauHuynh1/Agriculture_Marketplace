@@ -2,7 +2,9 @@ package com.example.agriculture_marketplace.Forum.Model;
 
 public class ManageForumModel {
     private String ChatRoomId;
-
+    private String userId;
+    private String forumName;
+    private boolean isSelected;
     public String getChatRoomId() {
         return ChatRoomId;
     }
@@ -35,9 +37,7 @@ public class ManageForumModel {
         isSelected = selected;
     }
 
-    private String userId;
-    private String forumName;
-    private boolean isSelected;
+
 
     public ManageForumModel(String chatRoomId, String userId) {
         ChatRoomId = chatRoomId;

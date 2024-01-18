@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Forum.Repository.ForumRepository;
+import com.example.agriculture_marketplace.Helpers.RenderImageHelper;
 import com.example.agriculture_marketplace.Helpers.UserManager;
 import com.example.agriculture_marketplace.MemberForum.MemberForumRepository;
 import com.example.agriculture_marketplace.R;
@@ -36,6 +40,7 @@ public class BrowseForumFragment extends Fragment {
     private ArrayList<Forum> forums;
     private TextView forumResultAmountTextView;
     private TextView welcomeTextView;
+    private ImageButton browseForumAddButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,8 @@ public class BrowseForumFragment extends Fragment {
             searchForum(searchForumEditText.getText().toString());
             return false;
         });
+        browseForumAddButton = view.findViewById(R.id.browse_forum_add_forum);
+        browseForumAddButton.setVisibility(View.INVISIBLE);
         return view;
     }
     private void init(View view) {
@@ -108,13 +115,15 @@ public class BrowseForumFragment extends Fragment {
                 TextView forumRatingTextView = view.findViewById(R.id.list_item_forum_rating);
                 TextView forumRatingAmountTextView = view.findViewById(R.id.list_item_forum_rating_amount);
                 TextView forumMemberAmountTextView = view.findViewById(R.id.forum_detail_member_amount);
-
+                ImageView forumImage = view.findViewById(R.id.list_item_forum_image);
                 Forum forum = forums.get(position);
                 forumNameTextView.setText(forum.getName());
+                RenderImageHelper.renderImage(forum.getImageUrl(), forumImage);
                 forumRatingRepository.getForumRatingAndAmount(forum.getId())
                         .thenAccept(result -> {
                             forumRatingTextView.setText(result.get(0));
-                            forumRatingAmountTextView.setText(result.get(1));
+                            String amount = "(" + result.get(1) + ")";
+                            forumRatingAmountTextView.setText(amount);
                         });
                 memberForumRepository.getForumMemberCount(forum.getId())
                         .thenAccept(result -> {

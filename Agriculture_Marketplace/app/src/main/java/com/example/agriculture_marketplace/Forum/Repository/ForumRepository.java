@@ -6,6 +6,7 @@ import com.example.agriculture_marketplace.Config.CollectionConfig;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
@@ -20,7 +21,18 @@ public class ForumRepository {
                 .add(forum)
                 .addOnSuccessListener(documentReference -> {
                     Log.d(TAG, "saveForumToFirebase: Success");
-                    future.complete(null);
+                    String id = documentReference.getId();
+                    db.collection(CollectionConfig.FORUM_COLLECTION)
+                            .document(id)
+                            .update("id", id)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d(TAG, "saveForumToFirebase: Success");
+                                future.complete(null);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.d(TAG, "saveForumToFirebase: Failed");
+                                future.completeExceptionally(e);
+                            });
                 })
                 .addOnFailureListener(e -> {
                     Log.d(TAG, "saveForumToFirebase: Failed");
@@ -93,6 +105,28 @@ public class ForumRepository {
                 })
                 .addOnFailureListener(e -> {
                     Log.d(TAG, "getAllForums: Failed");
+                    future.complete(null);
+                });
+        return future;
+    }
+    public CompletableFuture<ArrayList<Forum>> getForumsByOwnerId(String ownerId) {
+        CompletableFuture<ArrayList<Forum>> future = new CompletableFuture<>();
+        db.collection(CollectionConfig.FORUM_COLLECTION)
+                .whereEqualTo("ownerId", ownerId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    Log.d(TAG, "getForumsByOwnerId: Success");
+                    ArrayList<Forum> forums = new ArrayList<>();
+                    for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                        Forum temp = queryDocumentSnapshots.getDocuments().get(i).toObject(Forum.class);
+                        assert temp != null;
+                        temp.setId(queryDocumentSnapshots.getDocuments().get(i).getId());
+                        forums.add(temp);
+                    }
+                    future.complete(forums);
+                })
+                .addOnFailureListener(e -> {
+                    Log.d(TAG, "getForumsByOwnerId: Failed");
                     future.complete(null);
                 });
         return future;

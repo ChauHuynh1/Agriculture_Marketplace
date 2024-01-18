@@ -22,7 +22,9 @@ public class ForumRatingRepository {
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (queryDocumentSnapshots.isEmpty()) {
-                        Log.d(TAG, "getForumRatingAndAmount: Failed");
+                        Log.d(TAG, "getForumRatingAndAmount: No ratings found");
+                        result.add("0");
+                        result.add("0");
                         future.complete(result);
                     } else {
                         Log.d(TAG, "getForumRatingAndAmount: Success");
