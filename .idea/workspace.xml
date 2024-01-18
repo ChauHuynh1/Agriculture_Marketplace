@@ -11,12 +11,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e2fbcf7e-8120-4d67-a4a7-de3be617e2f8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/BrowseForumFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/BrowseForumFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/Chat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatForum.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/ChatForum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/Activity/Chat/FCMNotificationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/java/com/example/agriculture_marketplace/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_chat_forum.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_chat_forum.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agriculture_Marketplace/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705351586721</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="update">
+      <created>1705586189534</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1705586189534</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -264,6 +268,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update chat" />
-    <option name="LAST_COMMIT_MESSAGE" value="update chat" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>
