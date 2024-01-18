@@ -41,6 +41,7 @@ public class BrowseForumFragment extends Fragment {
     private TextView forumResultAmountTextView;
     private TextView welcomeTextView;
     private ImageButton browseForumAddButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +123,7 @@ public class BrowseForumFragment extends Fragment {
                 forumRatingRepository.getForumRatingAndAmount(forum.getId())
                         .thenAccept(result -> {
                             forumRatingTextView.setText(result.get(0));
-                            String amount = "(" + result.get(1) + ")";
+                            String amount = "(" + result.get(1) + "ratings )";
                             forumRatingAmountTextView.setText(amount);
                         });
                 memberForumRepository.getForumMemberCount(forum.getId())

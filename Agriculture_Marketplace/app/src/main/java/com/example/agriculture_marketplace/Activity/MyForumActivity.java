@@ -123,7 +123,7 @@ public class MyForumActivity extends AppCompatActivity implements OnForumClickLi
             ForumRatingRepository forumRatingRepository = new ForumRatingRepository();
             forumRatingRepository.getForumRatingAndAmount(forum.getId()).thenAccept(forumRatingAndAmount -> {
                 forumRating.setText(forumRatingAndAmount.get(0));
-                String amount = "(" + forumRatingAndAmount.get(1) + ")";
+                String amount = "(" + forumRatingAndAmount.get(1) + "ratings )";
                 forumRatingAmount.setText(amount);
             }
             );

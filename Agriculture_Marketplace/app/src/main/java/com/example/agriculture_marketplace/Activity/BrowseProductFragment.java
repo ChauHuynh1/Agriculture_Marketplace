@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 public class BrowseProductFragment extends Fragment {
     private BrowseProductBinding binding;
     private ProductRepository productRepository = new ProductRepository();
+    private static final String TAG = "[BrowseProductFragment]";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,14 +37,16 @@ public class BrowseProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.browse_product, container, false);
         binding = BrowseProductBinding.inflate(getLayoutInflater());
-
+        init();
         return view;
     }
     private void init() {
         productRepository.getAllProducts().thenAccept(products -> {
             renderList(products);
+            String result = products.size() + "results";
+            binding.browseProductResultAmount.setText(result);
         });
-
+        binding.browseProductAddButton.setVisibility(View.INVISIBLE);
     }
 
     private void renderList(ArrayList<Product> products) {

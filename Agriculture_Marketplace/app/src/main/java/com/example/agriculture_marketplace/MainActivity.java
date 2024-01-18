@@ -20,6 +20,7 @@ import com.example.agriculture_marketplace.Activity.BrowseProductFragment;
 import com.example.agriculture_marketplace.Activity.Chat.ChatForum;
 import com.example.agriculture_marketplace.Activity.Login;
 import com.example.agriculture_marketplace.Activity.MyForumActivity;
+import com.example.agriculture_marketplace.Activity.MyProductActivity;
 import com.example.agriculture_marketplace.User.Model.User;
 import com.example.agriculture_marketplace.User.Model.UserRepository;
 import com.example.agriculture_marketplace.utils.FirebaseUtil;
@@ -84,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, MyForumActivity.class));
+            }
+        });
+        myProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, MyProductActivity.class));
             }
         });
         // Fetch and display user details in the header

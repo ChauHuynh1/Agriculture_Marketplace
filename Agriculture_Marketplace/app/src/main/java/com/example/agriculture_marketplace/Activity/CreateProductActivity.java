@@ -14,7 +14,9 @@ import androidx.core.content.ContextCompat;
 import com.example.agriculture_marketplace.Activity.Dialog.ForumImageUrlDialog;
 import com.example.agriculture_marketplace.Config.ProductConfig;
 import com.example.agriculture_marketplace.Helpers.RenderImageHelper;
+import com.example.agriculture_marketplace.Helpers.UserManager;
 import com.example.agriculture_marketplace.Product.Product;
+import com.example.agriculture_marketplace.Product.ProductRepository;
 import com.example.agriculture_marketplace.R;
 import com.example.agriculture_marketplace.databinding.CreateProductBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,7 +28,7 @@ public class CreateProductActivity extends AppCompatActivity {
     private String imageUrl;
 
     private static final String TAG = "[CreateProductActivity]";
-    private String imageUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +62,20 @@ public class CreateProductActivity extends AppCompatActivity {
         String price = binding.createProductPrice.getText().toString();
         String category = binding.createProductCategorySpinner.getSelectedItem().toString();
         String quantity = binding.createProductUnit.getText().toString();
-        Product product = new Product(null, name, description, price, imageUrl, null, category, quantity);
+        String userId = UserManager.getInstance().getCurrentUser().getId();
+        Product product = new Product(null, name, description, price, imageUrl, userId, category, quantity);
         Log.d(TAG, "createProduct: " + product.toString());
+        ProductRepository productRepository = new ProductRepository();
+        productRepository.saveProductToFirebase(product).thenAccept(aVoid -> {
+            Log.d(TAG, "createProduct: success");
+            Intent intent = new Intent(this, MyProductActivity.class);
+            setResult( RESULT_OK, intent);
+            finish();
+        }).exceptionally(throwable -> {
+            Log.d(TAG, "createProduct: failed");
+            return null;
+        });
 
-        finish();
     }
     private void renderSpinner(){
         String[] category = ProductConfig.PRODUCT_CATEGORY_LIST;

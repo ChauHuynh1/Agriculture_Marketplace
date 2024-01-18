@@ -1,5 +1,9 @@
 package com.example.agriculture_marketplace.Product;
 
+import android.util.Log;
+
+import com.example.agriculture_marketplace.Config.CollectionConfig;
+import com.example.agriculture_marketplace.Config.ProductConfig;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -7,24 +11,34 @@ import java.util.concurrent.CompletableFuture;
 
 public class ProductRepository {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public void saveProductToFirebase(Product product) {
-        db.collection("products")
+    private static final String TAG = "[ProductRepository]";
+    public CompletableFuture<Void> saveProductToFirebase(Product product) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        db.collection(CollectionConfig.PRODUCT_COLLECTION)
                 .add(product)
                 .addOnSuccessListener(documentReference -> {
                     String id = documentReference.getId();
-                    db.collection("products")
+                    db.collection(CollectionConfig.PRODUCT_COLLECTION)
                             .document(id)
-                            .update("id", id)
-                            .addOnSuccessListener(aVoid -> System.out.println("updateUserId: Success"))
-                            .addOnFailureListener(e -> System.out.println("updateUserId: Failed"));
+                            .update(ProductConfig.PRODUCT_ID, id)
+                            .addOnSuccessListener(aVoid -> {
+                                future.complete(null);
+                                Log.d(TAG, "saveProductToFirebase: Success");
+                            })
+                            .addOnFailureListener(e -> {
+                                future.complete(null);
+                                Log.d(TAG, "saveProductToFirebase: Failed");
+                            });
                 })
                 .addOnFailureListener(e -> {
-                    System.out.println("saveUserToFirebase: Failed");
+                    future.complete(null);
+                    Log.d(TAG, "saveProductToFirebase: Failed");
                 });
+        return future;
     }
     public CompletableFuture<ArrayList<Product>> getAllProducts() {
         CompletableFuture<ArrayList<Product>> future = new CompletableFuture<>();
-        db.collection("products")
+        db.collection(CollectionConfig.PRODUCT_COLLECTION)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     ArrayList<Product> products = new ArrayList<>();
@@ -36,6 +50,7 @@ public class ProductRepository {
                 })
                 .addOnFailureListener(e -> {
                     future.complete(null);
+                    Log.d(TAG, "getAllProducts:  + Failed");
                 });
         return future;
     }

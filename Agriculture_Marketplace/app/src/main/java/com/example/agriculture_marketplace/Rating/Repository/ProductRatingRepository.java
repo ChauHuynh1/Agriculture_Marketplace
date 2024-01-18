@@ -1,8 +1,10 @@
 package com.example.agriculture_marketplace.Rating.Repository;
 
+import com.example.agriculture_marketplace.Config.CollectionConfig;
 import com.example.agriculture_marketplace.Rating.Model.ProductRating;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 public class ProductRatingRepository {
@@ -31,5 +33,35 @@ public class ProductRatingRepository {
                 });
         return future;
     }
+    public CompletableFuture<ArrayList<String>> getProductRatingAndAmount(String productId){
+        CompletableFuture<ArrayList<String>> future = new CompletableFuture<>();
+        ArrayList<String> result = new ArrayList<>();
+        db.collection(CollectionConfig.PRODUCT_RATING_COLLECTION)
+                .whereEqualTo("productId", productId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        System.out.println("getProductRatingAndAmount: No ratings found");
+                        result.add("0");
+                        result.add("0");
+                        future.complete(result);
+                    } else {
+                        System.out.println("getProductRatingAndAmount: Success");
+                        ArrayList<ProductRating> productRatings = (ArrayList<ProductRating>) queryDocumentSnapshots.toObjects(ProductRating.class);
+                        int totalRating = 0;
+                        for (ProductRating productRating : productRatings) {
+                            totalRating += Integer.parseInt(productRating.getRating());
+                        }
+                        result.add(String.valueOf(totalRating));
+                        result.add(String.valueOf(productRatings.size()));
+                        future.complete(result);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("getProductRatingAndAmount: Failed");
+                    future.complete(result);
+                });
+        return future;
+    };
 
 }

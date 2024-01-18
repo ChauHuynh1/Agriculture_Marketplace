@@ -35,6 +35,7 @@ public class UpdateForumActivity extends AppCompatActivity {
         setContentView(R.layout.update_forum);
 
         currentForum = (Forum) getIntent().getSerializableExtra("forum");
+        Log.d(TAG, "onCreate: " + currentForum.toString());
         init();
     }
 
