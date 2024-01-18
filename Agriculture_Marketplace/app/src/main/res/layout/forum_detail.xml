@@ -221,13 +221,13 @@
 
 
             <TextView
+                android:id="@+id/forum_detail_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/this_is_the_forum_for_the_people_who_want_to_eat_fresh_fruit"
                 android:layout_marginStart="10dp"
-                android:textSize="20sp"
                 android:layout_marginBottom="20dp"
-                />
+                android:text="@string/this_is_the_forum_for_the_people_who_want_to_eat_fresh_fruit"
+                android:textSize="20sp" />
 
 
             <TextView
