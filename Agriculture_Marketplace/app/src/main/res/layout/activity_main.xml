@@ -36,7 +36,6 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:layout_gravity="start">
-
             <include layout="@layout/nav_drawer" />
         </RelativeLayout>
     </androidx.drawerlayout.widget.DrawerLayout>
