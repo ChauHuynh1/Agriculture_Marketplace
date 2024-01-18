@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import com.example.agriculture_marketplace.databinding.BrowseForumBinding;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 
 public class MyForumActivity extends AppCompatActivity implements OnForumClickListener {
     private BrowseForumBinding binding;
@@ -60,12 +63,44 @@ public class MyForumActivity extends AppCompatActivity implements OnForumClickLi
 
     private void init() {
         ForumRepository forumRepository = new ForumRepository();
-        forumRepository.getForumsByOwnerId(UserManager.getInstance().getCurrentUser().getId()).thenAccept(forums -> {
-            this.forums = forums;
+        forumRepository.getForumsByOwnerId(UserManager.getInstance().getCurrentUser().getId()).thenAccept(returnedForums -> {
+            forums = returnedForums; // Correctly reference the outer class
             binding.browseForumWelcome.setText(R.string.my_forum);
             binding.browseForumListView.setAdapter(new MyForumAdapter(this, forums, this));
             binding.browseForumResultAmount.setText(String.format("%d results", forums.size()));
+            binding.browseForumCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selectedItem = parent.getItemAtPosition(position).toString();
+
+                    if (selectedItem.equals("All")) {
+                        forumRepository.getAllForums().thenAccept(newForums -> {
+                            forums = newForums;  // Directly update the member variable
+                            renderForumList(forums);
+                        });
+                    } else {
+                        forumRepository.getForumByCategory(selectedItem).thenAccept(newForums -> {
+                            forums = newForums;  // Directly update the member variable
+                            renderForumList(forums);
+                        });
+                    }
+                }
+
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    // Another interface callback
+                }
+            });
         });
+    }
+
+
+    private void renderForumList(ArrayList<Forum> forums) {
+        MyForumAdapter forumListAdapter = new MyForumAdapter(this, forums, this);
+        binding.browseForumListView.setAdapter(forumListAdapter);
+        String forumAmount = String.valueOf(forums.size()) + " results";
+        binding.browseForumResultAmount.setText(forumAmount);
     }
 
     @Override
@@ -74,6 +109,7 @@ public class MyForumActivity extends AppCompatActivity implements OnForumClickLi
         intent.putExtra("forum", forum);
         someActivityResultLauncher.launch(intent);
     }
+
 
     public class MyForumAdapter extends BaseAdapter {
         private final ArrayList<Forum> forums;
@@ -113,7 +149,8 @@ public class MyForumActivity extends AppCompatActivity implements OnForumClickLi
             MemberForumRepository memberForumRepository = new MemberForumRepository();
 
             memberForumRepository.getForumMemberCount(forum.getId()).thenAccept(memberAmount -> {
-                forumMemberAmount.setText(String.valueOf(memberAmount));
+                String resultString = memberAmount + " members";
+                forumMemberAmount.setText(resultString);
             });
             forumTitle.setText(forum.getName());
             UserRepository userRepository = new UserRepository();
@@ -123,7 +160,7 @@ public class MyForumActivity extends AppCompatActivity implements OnForumClickLi
             ForumRatingRepository forumRatingRepository = new ForumRatingRepository();
             forumRatingRepository.getForumRatingAndAmount(forum.getId()).thenAccept(forumRatingAndAmount -> {
                 forumRating.setText(forumRatingAndAmount.get(0));
-                String amount = "(" + forumRatingAndAmount.get(1) + "ratings )";
+                String amount = "(" + forumRatingAndAmount.get(1) + " ratings )";
                 forumRatingAmount.setText(amount);
             }
             );

@@ -75,7 +75,7 @@
                 android:focusable="true">
 
                 <Spinner
-                    android:id="@+id/create_forum_category_spinner"
+                    android:id="@+id/browse_forum_category_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical" />

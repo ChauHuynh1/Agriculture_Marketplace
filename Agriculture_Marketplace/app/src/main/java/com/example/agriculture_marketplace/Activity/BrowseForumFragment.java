@@ -11,13 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.fragment.app.Fragment;
@@ -42,10 +46,12 @@ public class BrowseForumFragment extends Fragment {
     private final ForumRatingRepository forumRatingRepository = new ForumRatingRepository();
     private final MemberForumRepository memberForumRepository = new MemberForumRepository();
     private final UserRepository userRepository = new UserRepository();
+    private final ForumRepository forumRepository = new ForumRepository();
     private ArrayList<Forum> forums;
     private TextView forumResultAmountTextView;
     private TextView welcomeTextView;
     private ImageButton browseForumAddButton;
+    private Spinner categorySpinner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,12 +62,12 @@ public class BrowseForumFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.browse_forum, container, false);
-        init(view);
+
 
         searchForumEditText = view.findViewById(R.id.browse_forum_search);
         forumResultAmountTextView = view.findViewById(R.id.browse_forum_result_amount);
-
-
+        categorySpinner = view.findViewById(R.id.browse_forum_category_spinner);
+        init(view);
         searchForumEditText.setOnEditorActionListener((v, actionId, event) -> {
             searchForum(searchForumEditText.getText().toString());
             return false;
@@ -97,11 +103,31 @@ public class BrowseForumFragment extends Fragment {
         Log.d(TAG, "init: "+ UserManager.getInstance().getCurrentUser().toString());
         String welcome = "Welcome, " +  username;
         welcomeTextView.setText(welcome);
-        CompletableFuture<ArrayList<Forum>> future = new ForumRepository().getForumsUserNotJoined(UserManager.getInstance().getCurrentUser().getId());
-        future.thenAccept(forums -> {
-            renderForumList(forums);
-            this.forums = forums;
+        renderSpinner();
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("All")) {
+                    forumRepository.getAllForums().thenAccept(forums -> {
+                        BrowseForumFragment.this.forums = forums;
+                        renderForumList(forums);
+                    });
+                    return;
+                } else {
+                    forumRepository.getForumByCategory(selectedItem).thenAccept(forums -> {
+                        BrowseForumFragment.this.forums = forums;
+                        renderForumList(forums);
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
         });
+        categorySpinner.setSelection(0);
     }
 
     private void renderForumList(ArrayList<Forum> forums) {
@@ -150,12 +176,13 @@ public class BrowseForumFragment extends Fragment {
                 forumRatingRepository.getForumRatingAndAmount(forum.getId())
                         .thenAccept(result -> {
                             forumRatingTextView.setText(result.get(0));
-                            String amount = "(" + result.get(1) + "ratings )";
+                            String amount = "(" + result.get(1) + " ratings )";
                             forumRatingAmountTextView.setText(amount);
                         });
                 memberForumRepository.getForumMemberCount(forum.getId())
                         .thenAccept(result -> {
-                            forumMemberAmountTextView.setText(String.valueOf(result));
+                            String resultString = result + " members";
+                            forumMemberAmountTextView.setText(resultString);
                         });
                 userRepository.getUserbyId(forum.getOwnerId())
                         .thenAccept(result -> {
@@ -173,7 +200,11 @@ public class BrowseForumFragment extends Fragment {
             return view;
         }
     }
-
+    private void renderSpinner(){
+        String[] categories =  {"All", "Agriculture", "Fishery", "Livestock"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories);
+        categorySpinner.setAdapter(adapter);
+    }
     private void searchForum (String forumName) {
         if (forumName.isEmpty()) {
             renderForumList(forums);

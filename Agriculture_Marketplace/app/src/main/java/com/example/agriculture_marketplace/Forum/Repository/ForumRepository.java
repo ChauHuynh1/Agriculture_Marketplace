@@ -3,6 +3,7 @@ package com.example.agriculture_marketplace.Forum.Repository;
 import android.util.Log;
 
 import com.example.agriculture_marketplace.Config.CollectionConfig;
+import com.example.agriculture_marketplace.Config.ForumConfig;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.MemberForum.MemberForumRepository;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -147,6 +148,28 @@ public class ForumRepository {
             }
         }
         );
+        return future;
+    }
+    public CompletableFuture<ArrayList<Forum>> getForumByCategory(String category) {
+        CompletableFuture<ArrayList<Forum>> future = new CompletableFuture<>();
+        db.collection(CollectionConfig.FORUM_COLLECTION)
+                .whereEqualTo(ForumConfig.FORUM_CATEGORY, category)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    Log.d(TAG, "getForumByCategory: Success");
+                    ArrayList<Forum> forums = new ArrayList<>();
+                    for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                        Forum temp = queryDocumentSnapshots.getDocuments().get(i).toObject(Forum.class);
+                        assert temp != null;
+                        temp.setId(queryDocumentSnapshots.getDocuments().get(i).getId());
+                        forums.add(temp);
+                    }
+                    future.complete(forums);
+                })
+                .addOnFailureListener(e -> {
+                    Log.d(TAG, "getForumByCategory: Failed");
+                    future.complete(null);
+                });
         return future;
     }
 }
