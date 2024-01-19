@@ -37,10 +37,17 @@
                 app:layout_constraintEnd_toEndOf="parent" />
 
 
-            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                android:id="@+id/carousel"
+            <ImageView
+                android:id="@+id/productImage"
                 android:layout_width="match_parent"
-                android:layout_height="256dp" />
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/picture_placeholder"
+                android:contentDescription="@string/forum_image"
+                android:scaleType="centerCrop"
+                />
 
             <TextView
                 android:id="@+id/productPrice"
@@ -84,7 +91,7 @@
 
 
             <TextView
-                android:id="@+id/forum_detail_owner"
+                android:id="@+id/product_detail_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -101,16 +108,26 @@
                 android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0">
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="0.7">
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_weight="1"
                     android:text="@string/quantity"
                     android:textSize="20sp"
                     android:textStyle="bold" />
-
+                <TextView
+                    android:id="@+id/product_detail_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_21"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -144,6 +161,7 @@
 
 
                 <TextView
+                    android:id="@+id/selectedQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -153,15 +171,15 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+
                 <ImageButton
                     android:id="@+id/addProduct"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:backgroundTint="@color/white"
                     android:scaleType="centerCrop"
                     android:src="@drawable/plus_icon"
-                    android:backgroundTint="@color/white"
                     android:textAllCaps="false" />
-
 
                 <TextView
                     android:id="@+id/totalMoney"
@@ -193,7 +211,7 @@
 
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/product_detail_more"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/para_description"
@@ -204,7 +222,7 @@
 
 
             <Button
-                android:id="@+id/buy"
+                android:id="@+id/buyProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -213,7 +231,7 @@
                 android:layout_marginEnd="50dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/G469D7B"
-                android:text="@string/add_to_your_cart"
+                android:text="@string/buy"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"

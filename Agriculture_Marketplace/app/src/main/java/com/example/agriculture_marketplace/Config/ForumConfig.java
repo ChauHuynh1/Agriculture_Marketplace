@@ -9,8 +9,8 @@ public class ForumConfig {
     public static final String FORUM_MESSAGES = "messages";
 
     public static final String[] FORUM_CATEGORY_LIST = {
-            "Category 1",
-            "Category 2",
-            "Category 3",
+            "Agriculture",
+            "Fishery",
+            "Livestock",
     };
 }

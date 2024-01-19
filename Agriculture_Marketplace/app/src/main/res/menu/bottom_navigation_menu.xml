@@ -18,9 +18,5 @@
         android:icon="@drawable/market_icon"
         android:title="@string/market"
         app:showAsAction="ifRoom" />
-
-
-
-
     <!-- Add more items as needed -->
 </menu>

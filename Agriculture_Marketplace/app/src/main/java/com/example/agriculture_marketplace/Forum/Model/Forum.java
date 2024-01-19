@@ -30,6 +30,7 @@ public class Forum implements Externalizable {
         this.category = category;
         this.description = description;
         this.ownerId = ownerId;
+        this.imageUrl = imageUrl;
     }
     public Forum() {
         this.name = "";

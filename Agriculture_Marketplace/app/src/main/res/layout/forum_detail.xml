@@ -58,15 +58,15 @@
 
 
                 <TextView
+                    android:id="@+id/forum_detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
                     android:padding="5dp"
                     android:text="@string/farmer_saigon"
-                    android:layout_gravity="center"
                     android:textSize="36sp"
-                    android:layout_marginStart="20dp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
 
                 <ImageButton
@@ -221,13 +221,13 @@
 
 
             <TextView
+                android:id="@+id/forum_detail_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/this_is_the_forum_for_the_people_who_want_to_eat_fresh_fruit"
                 android:layout_marginStart="10dp"
-                android:textSize="20sp"
                 android:layout_marginBottom="20dp"
-                />
+                android:text="@string/this_is_the_forum_for_the_people_who_want_to_eat_fresh_fruit"
+                android:textSize="20sp" />
 
 
             <TextView

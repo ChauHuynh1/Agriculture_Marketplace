@@ -2,16 +2,20 @@ package com.example.agriculture_marketplace.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.agriculture_marketplace.Activity.Chat.ChatForum;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.MemberForum.MemberForum;
 import com.example.agriculture_marketplace.MemberForum.MemberForumRepository;
 import com.example.agriculture_marketplace.R;
 import com.example.agriculture_marketplace.Rating.Repository.ForumRatingRepository;
+import com.example.agriculture_marketplace.User.Model.User;
 import com.example.agriculture_marketplace.User.Model.UserRepository;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -27,6 +31,7 @@ public class ForumDetailActivity extends AppCompatActivity {
     ForumRatingRepository forumRatingRepository = new ForumRatingRepository();
 
     Forum forum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +49,14 @@ public class ForumDetailActivity extends AppCompatActivity {
         forumRatingTextView = findViewById(R.id.forum_detail_rating);
         forumRatingAmountTextView = findViewById(R.id.forum_detail_rating_amount);
         joinForumButton = findViewById(R.id.forum_detail_join_button);
+
+        // Set an OnClickListener for the joinForumButton
+        joinForumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                joinForum();
+            }
+        });
     }
 
     private void renderForumDetail() {
@@ -64,6 +77,17 @@ public class ForumDetailActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         MemberForum memberForum = new MemberForum(forum.getId(), auth.getUid());
         memberForumRepository.saveMemberForumToFirebase(memberForum);
+
+        // Navigate to the chatroom activity
+        navigateToChatroom();
     }
 
+    private void navigateToChatroom() {
+        // You need to implement this method to navigate to the ChatForum or Chat activity
+        // For example:
+        Intent chatIntent = new Intent(ForumDetailActivity.this, ChatForum.class);
+        startActivity(chatIntent);
+        // Finish the current activity if needed
+        finish();
+    }
 }

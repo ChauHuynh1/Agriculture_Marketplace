@@ -12,21 +12,30 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.agriculture_marketplace.Activity.BrowseForumFragment;
+import com.example.agriculture_marketplace.Activity.BrowseProductFragment;
+import com.example.agriculture_marketplace.Activity.Chat.Chat;
 import com.example.agriculture_marketplace.Activity.Chat.ChatForum;
 import com.example.agriculture_marketplace.Activity.Login;
+import com.example.agriculture_marketplace.Activity.MyForumActivity;
+import com.example.agriculture_marketplace.Activity.MyProductActivity;
 import com.example.agriculture_marketplace.User.Model.User;
 import com.example.agriculture_marketplace.User.Model.UserRepository;
 import com.example.agriculture_marketplace.utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
     TextView headerName, headerEmail;
-    LinearLayout logout, aboutUs;
+    LinearLayout logout, aboutUs, myForum, myProduct;
+    LinearLayout fragmentContainer;
     private static final String TAG = "MainActivity";
     private final UserRepository userRepository = new UserRepository();
 
@@ -38,12 +47,29 @@ public class MainActivity extends AppCompatActivity {
         menu = findViewById(R.id.menu);
         logout = findViewById(R.id.logout);
         aboutUs= findViewById(R.id.aboutUs);
-
+        fragmentContainer = findViewById(R.id.main_fragment_container);
+        myForum = findViewById(R.id.my_forum);
+        myProduct = findViewById(R.id.my_product);
         // Initialize the header views
         headerName = findViewById(R.id.header_name);
         headerEmail = findViewById(R.id.header_email);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.navigation_item1) {
+                replaceFragment(new BrowseForumFragment());
+            } else if (id == R.id.navigation_item2) {
+               startActivity(new Intent(MainActivity.this, ChatForum.class));
+            } else if (id == R.id.navigation_item3) {
+                replaceFragment(new BrowseProductFragment());
+            }
+            return true;
+        });
+
+        replaceFragment(new BrowseForumFragment());
         // Set up the navigation drawer
+
         menu.setOnClickListener(view -> drawerLayout.openDrawer(Gravity.LEFT));
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,13 +79,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        aboutUs.setOnClickListener(new View.OnClickListener() {
+        myForum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ChatForum.class));
+                startActivity(new Intent(MainActivity.this, MyForumActivity.class));
             }
         });
-
+        myProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, MyProductActivity.class));
+            }
+        });
         // Fetch and display user details in the header
         fetchAndDisplayUserDetails();
     }
@@ -85,22 +116,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_fragment_container, fragment);
+        fragmentTransaction.commit();
+    }
 }
-
-//        User user = new User("An", "an123@gmail.com", "123123123");
-//        userRepository.saveUserToFirebase(user);
-//        Forum forum = new Forum("name1", "category1", "description1", "6guQj41QNErU1U5i1YNx");
-//        Forum forum1 = new Forum("name2", "category2", "description1","6guQj41QNErU1U5i1YNx");
-//        forumRepository.saveForumToFirebase(forum);
-//        CompletableFuture<ArrayList<Forum>> future = forumRepository.getAllForums();
-//        future.thenAccept(forums -> {
-//            Log.d(TAG, "onCreate: " + forums.toString());
-//        });
-//        forumRepository.saveForumToFirebase(forum1);
-//        MemberForum memberForum = new MemberForum("6guQj41QNErU1U5i1YNx", "2QsepQyv9ds6j0DzD7ip");
-//        memberForumRepository.saveMemberForumToFirebase(memberForum);
-//        forumRepository.getForumById("ixsVrpNhldKBGzR5JBBg").thenAccept(forum -> {
-//            Log.d(TAG, "onCreate: " + forum.toString());
-//            Intent intent = new Intent(this, Login.class);
-//            startActivity(intent);
-//        });

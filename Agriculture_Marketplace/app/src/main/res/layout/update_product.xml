@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,7 +48,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/create_product_image"
+                android:id="@+id/update_product_image"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:layout_gravity="center"
@@ -59,7 +58,7 @@
                 android:contentDescription="@string/forum_image" />
 
             <Button
-                android:id="@+id/create_product_choose_image"
+                android:id="@+id/update_product_choose_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -85,7 +84,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/create_product_name"
+                android:id="@+id/update_product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -115,7 +114,7 @@
                 android:focusable="true">
 
                 <Spinner
-                    android:id="@+id/create_forum_category_spinner"
+                    android:id="@+id/update_product_category_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical" />
@@ -133,7 +132,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/create_product_brand_name"
+                android:id="@+id/update_product_brand_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -142,6 +141,48 @@
                 android:hint="@string/enter_your_product_brand_name"
                 android:padding="20dp"
                 android:textSize="18sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/price"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/update_product_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/border"
+                android:hint="@string/enter_your_price"
+                android:padding="20dp"
+                android:textSize="18sp"
+                android:inputType="numberDecimal"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/quantity"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/update_product_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/border"
+                android:hint="@string/enter_product_quantity"
+                android:padding="20dp"
+                android:textSize="18sp"
+                android:inputType="number"/>
 
 
             <TextView
@@ -155,7 +196,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/create_product_description"
+                android:id="@+id/update_product_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -166,7 +207,7 @@
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/create_product_create_button"
+                android:id="@+id/update_product_create_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -175,14 +216,14 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/G469D7B"
-                android:text="@string/create_forum"
+                android:text="@string/update_product"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:cornerRadius="10dp" />
 
             <Button
-                android:id="@+id/update_forum_delete_button"
+                android:id="@+id/update_product_delete_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -190,7 +231,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/E56376"
+                android:backgroundTint="@color/Red"
                 android:text="@string/delete_product"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -200,12 +241,4 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

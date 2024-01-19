@@ -1,5 +1,9 @@
 package com.example.agriculture_marketplace.Product;
 
+import android.util.Log;
+
+import com.example.agriculture_marketplace.Config.CollectionConfig;
+import com.example.agriculture_marketplace.Config.ProductConfig;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -7,24 +11,34 @@ import java.util.concurrent.CompletableFuture;
 
 public class ProductRepository {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public void saveProductToFirebase(Product product) {
-        db.collection("products")
+    private static final String TAG = "[ProductRepository]";
+    public CompletableFuture<Void> saveProductToFirebase(Product product) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        db.collection(CollectionConfig.PRODUCT_COLLECTION)
                 .add(product)
                 .addOnSuccessListener(documentReference -> {
                     String id = documentReference.getId();
-                    db.collection("products")
+                    db.collection(CollectionConfig.PRODUCT_COLLECTION)
                             .document(id)
-                            .update("id", id)
-                            .addOnSuccessListener(aVoid -> System.out.println("updateUserId: Success"))
-                            .addOnFailureListener(e -> System.out.println("updateUserId: Failed"));
+                            .update(ProductConfig.PRODUCT_ID, id)
+                            .addOnSuccessListener(aVoid -> {
+                                future.complete(null);
+                                Log.d(TAG, "saveProductToFirebase: Success");
+                            })
+                            .addOnFailureListener(e -> {
+                                future.complete(null);
+                                Log.d(TAG, "saveProductToFirebase: Failed");
+                            });
                 })
                 .addOnFailureListener(e -> {
-                    System.out.println("saveUserToFirebase: Failed");
+                    future.complete(null);
+                    Log.d(TAG, "saveProductToFirebase: Failed");
                 });
+        return future;
     }
-    CompletableFuture<ArrayList<Product>> getAllProducts() {
+    public CompletableFuture<ArrayList<Product>> getAllProducts() {
         CompletableFuture<ArrayList<Product>> future = new CompletableFuture<>();
-        db.collection("products")
+        db.collection(CollectionConfig.PRODUCT_COLLECTION)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     ArrayList<Product> products = new ArrayList<>();
@@ -93,18 +107,30 @@ public class ProductRepository {
                 });
         return future;
     }
-    public void updateProduct(Product product) {
+    public CompletableFuture<Product> updateProduct(Product product) {
+        CompletableFuture<Product> future = new CompletableFuture<>();
         db.collection("products")
                 .document(product.getId())
                 .set(product)
-                .addOnSuccessListener(aVoid -> System.out.println("updateProduct: Success"))
-                .addOnFailureListener(e -> System.out.println("updateProduct: Failed"));
+                .addOnSuccessListener(aVoid -> {
+                    future.complete(product);
+                })
+                .addOnFailureListener(e -> {
+                    future.complete(null);
+                });
+        return future;
     }
-    public void deleteProduct(String id) {
+    public CompletableFuture<Void> deleteProduct(String id) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
         db.collection("products")
                 .document(id)
                 .delete()
-                .addOnSuccessListener(aVoid -> System.out.println("deleteProduct: Success"))
-                .addOnFailureListener(e -> System.out.println("deleteProduct: Failed"));
+                .addOnSuccessListener(aVoid -> {
+                    future.complete(null);
+                })
+                .addOnFailureListener(e -> {
+                    future.complete(null);
+                });
+        return future;
     }
 }

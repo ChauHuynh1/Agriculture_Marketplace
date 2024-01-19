@@ -3,6 +3,7 @@ package com.example.agriculture_marketplace.Activity.Chat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,9 +21,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.agriculture_marketplace.Activity.BrowseForumFragment;
+import com.example.agriculture_marketplace.Activity.BrowseProductFragment;
 import com.example.agriculture_marketplace.Activity.Login;
 import com.example.agriculture_marketplace.Forum.Model.Forum;
 import com.example.agriculture_marketplace.Forum.Model.ForumAdapter;
@@ -48,6 +55,9 @@ import java.util.List;
 public class ChatForum extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+
+    DrawerLayout drawerLayout;
+    ImageView menu;
     EditText searchInput;
     ChatFragment chatFragment;
     RecyclerView recyclerView;
@@ -55,6 +65,7 @@ public class ChatForum extends AppCompatActivity {
     SearchForumRecyclerAdapter adapter;
     Button delete;
     ImageButton close;
+    LinearLayout logout, aboutUs, myForum, myProduct;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference forumCollection = db.collection("forums");
 
@@ -68,6 +79,14 @@ public class ChatForum extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_forum);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
+        menu = findViewById(R.id.menu);
+
+        logout = findViewById(R.id.logout);
+        aboutUs= findViewById(R.id.aboutUs);
+        myForum = findViewById(R.id.my_forum);
+        myProduct = findViewById(R.id.my_product);
 
         chatFragment = new ChatFragment();
         recyclerView = findViewById(R.id.search_user_recycler_view);
@@ -101,6 +120,15 @@ public class ChatForum extends AppCompatActivity {
 
 
         delete.setOnClickListener(view -> deleteSelectedChatRoom());
+
+        menu.setOnClickListener(view -> drawerLayout.openDrawer(Gravity.LEFT));
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ChatForum.this, "Logout", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ChatForum.this, Login.class));
+            }
+        });
 
         searchInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +174,17 @@ public class ChatForum extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.navigation_item2) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.main_frame_layout, chatFragment).commit();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_frame_layout, chatFragment)
+                            .commit();
+                } else if (item.getItemId() == R.id.navigation_item1) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_frame_layout, new BrowseForumFragment())
+                            .commit();
+                } else if (item.getItemId() == R.id.navigation_item3) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_frame_layout, new BrowseProductFragment())
+                            .commit();
                 }
                 return true;
             }

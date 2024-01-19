@@ -11,20 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0">
 
@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/hi_chau_nguyen"
+                android:text="@string/marketplace"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
@@ -53,8 +53,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            >
+            app:layout_constraintHorizontal_bias="0.0">
 
             <EditText
                 android:id="@+id/browse_product_search"
@@ -65,14 +64,13 @@
                 android:drawableEnd="@drawable/custom_search_icon"
                 android:hint="@string/search_product"
                 android:inputType="textLongMessage"
-                android:padding="15dp"
-                />
+                android:padding="15dp" />
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/border"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -94,20 +92,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <TextView
                     android:id="@+id/browse_product_result_amount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/_123_results"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
+                <ImageButton
+                    android:id="@+id/browse_product_add_button"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/plus_icon"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="10dp"/>
+            </LinearLayout>
                 <ListView
                     android:id="@+id/browse_product_list_view"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="480dp"
                     android:divider="@android:color/transparent"
                     android:dividerHeight="14.0sp" />
 
@@ -116,13 +125,5 @@
         </ScrollView>
 
     </LinearLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_menu"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

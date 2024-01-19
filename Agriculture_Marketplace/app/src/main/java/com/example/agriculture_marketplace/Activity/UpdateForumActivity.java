@@ -1,5 +1,6 @@
 package com.example.agriculture_marketplace.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,7 @@ public class UpdateForumActivity extends AppCompatActivity {
         setContentView(R.layout.update_forum);
 
         currentForum = (Forum) getIntent().getSerializableExtra("forum");
+        Log.d(TAG, "onCreate: " + currentForum.toString());
         init();
     }
 
@@ -87,16 +89,21 @@ public class UpdateForumActivity extends AppCompatActivity {
         ForumRepository forumRepository = new ForumRepository();
         forumRepository.updateForum(currentForum).thenAccept(aVoid -> {
             Toast.makeText(this, "Forum updated", Toast.LENGTH_SHORT).show();
+            Intent returnIntent = new Intent(this, MyForumActivity.class);
+            setResult(RESULT_OK, returnIntent);
             finish();
         });
     }
 
     public void deleteForum(){
+        String displayText = "Are you sure you want to delete " + currentForum.getName() + "?";
         //*Delete forum from firebase
-        ForumDeleteConfirmDialog dialog = new ForumDeleteConfirmDialog(this, () -> {
+        ForumDeleteConfirmDialog dialog = new ForumDeleteConfirmDialog(this, displayText, ()-> {
             ForumRepository forumRepository = new ForumRepository();
             forumRepository.deleteForum(currentForum.getId()).thenAccept(aVoid -> {
                 Toast.makeText(this, "Forum deleted", Toast.LENGTH_SHORT).show();
+                Intent returnIntent = new Intent(this, MyForumActivity.class);
+                setResult(RESULT_OK, returnIntent);
                 finish();
             });
         });

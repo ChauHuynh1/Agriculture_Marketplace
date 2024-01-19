@@ -15,21 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Agriculture_Marketplace"
         tools:targetApi="31">
-        <activity
-            android:name=".Activity.SellProduct"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.Login"
-            android:exported="true">
-        </activity>
+<!--        <activity-->
+<!--            android:name=".Activity.SellProduct"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.Chat.Chat"
-            android:exported="true" />
-        <activity
-            android:name=".Activity.BrowseForumActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.ForumDetailActivity"
@@ -51,21 +44,7 @@
             android:name=".Activity.ForgotPass"
             android:exported="true" />
 
-        <service
-            android:name=".Activity.Chat.FCMNotificationService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <activity android:name=".Activity.BrowseForumActivity"
-            android:exported="true"/>
-        <activity android:name=".Activity.ForumDetailActivity"
-            android:exported="true"/>
-        <activity android:name=".Activity.CreateForumActivity"
-            android:exported="true"/>
-        <activity android:name=".Activity.UpdateForumActivity"
-            android:exported="true"/>
+
         <activity android:name=".Activity.Login"
             android:exported="true">
             <intent-filter>
@@ -73,9 +52,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.SignUp"
+        <activity android:name=".Activity.MyForumActivity"
             android:exported="true"/>
-        <activity android:name=".Activity.ForgotPass"
+        <activity android:name=".Activity.MyProductActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.CreateProductActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.ProductDetailActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.UpdateProductActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.RatingProductActivity"
             android:exported="true"/>
     </application>
 

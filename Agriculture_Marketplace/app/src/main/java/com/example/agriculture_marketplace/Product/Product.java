@@ -1,6 +1,11 @@
 package com.example.agriculture_marketplace.Product;
 
-public class Product {
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
+public class Product implements Externalizable {
     private String id;
     private String name;
     private String description;
@@ -86,5 +91,43 @@ public class Product {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price='" + price + '\'' +
+                ", image='" + image + '\'' +
+                ", sellerId='" + sellerId + '\'' +
+                ", category='" + category + '\'' +
+                ", quantity='" + quantity + '\'' +
+                '}';
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(id);
+        out.writeObject(name);
+        out.writeObject(description);
+        out.writeObject(price);
+        out.writeObject(image);
+        out.writeObject(sellerId);
+        out.writeObject(category);
+        out.writeObject(quantity);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws ClassNotFoundException, IOException {
+        id = (String) in.readObject();
+        name = (String) in.readObject();
+        description = (String) in.readObject();
+        price = (String) in.readObject();
+        image = (String) in.readObject();
+        sellerId = (String) in.readObject();
+        category = (String) in.readObject();
+        quantity = (String) in.readObject();
     }
 }
